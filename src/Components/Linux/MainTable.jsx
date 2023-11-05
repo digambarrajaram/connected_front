@@ -36,6 +36,11 @@ const MainTable = () => {
   }, [])
 
     const [columns, setColumns] = useState([
+        {
+            title: 'No.',
+            render: (rowData) => rowData.tableData.id + 1,
+            editable: 'never',
+          },
         { title: 'Server Name', field: 'server_NAME', emptyValue:() => <em>NA</em> },
         { title: 'Physical IP', field: 'physical_IP', emptyValue:() => <em>NA</em>},
         { title: 'Project Name', field: 'project_NAME', emptyValue:() => <em>NA</em>},
