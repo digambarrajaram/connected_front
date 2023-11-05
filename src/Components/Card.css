@@ -1,0 +1,21 @@
+.new{
+  /* background-color: black; */
+}
+  .new:hover {
+    box-shadow: 2px 12px 15px #f5d8d8;
+    /* background-color: red; */
+  }
+  .new.with-transform:hover {
+    /* transform: translateY(-10px); */
+    transform: scale(1.1);
+
+    /* background-color: #bf1717; */
+  }
+
+  .with-transform{
+    transition: transform 500ms ease-in-out;
+  }
+
+  .card-body{
+    background-color: rgb(243, 242, 199)
+  }
