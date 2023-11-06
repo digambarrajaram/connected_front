@@ -2,6 +2,7 @@
 //import useState hook to create menu collapse state
 import React, { useState } from "react";
 //import react pro sidebar components
+import ossglogo from "../../Assets/OSSG.gif";
 import {
   ProSidebar,
   Menu,
@@ -40,9 +41,10 @@ const Header = () => {
           {/* collapsed props to change menu size using menucollapse state */}
         <ProSidebar collapsed={menuCollapse}>
           <SidebarHeader>
-          <div className="logotext">
+          <div className="logotext mt-3 text-center">
               {/* small and big change using menucollapse state */}
-              <p>{menuCollapse ? "Logo" : "Protean eGov"}</p>
+              {/* <p>{menuCollapse ? "Logo" : "Protean eGov"}</p> */}
+              <img src={ossglogo} style={{width:"100%",height:"100%"}} className="mt-1 mb-3"></img>
             </div>
             <div className="closemenu" onClick={menuIconClick}>
                 {/* changing menu collapse icon on click */}

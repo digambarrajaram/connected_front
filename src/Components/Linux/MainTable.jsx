@@ -2,7 +2,7 @@ import React, { useState, useEffect } from 'react';
 import axios from 'axios';
 import MaterialTable from 'material-table'
 // import { MdOutlineHideSource } from "react-icons/md";
-
+import "./MainTable.css";
 
 
 const MainTable = () => {
@@ -35,17 +35,54 @@ const MainTable = () => {
     getdata();
   }, [])
 
+  const categories = ['NA','PROD', 'TEST'];
+  const osdetails = ['NA','SUSE', 'UBUNTU','REDHAT'];
+
     const [columns, setColumns] = useState([
         {
             title: 'No.',
             render: (rowData) => rowData.tableData.id + 1,
             editable: 'never',
           },
+          
         { title: 'Server Name', field: 'server_NAME', emptyValue:() => <em>NA</em> },
         { title: 'Physical IP', field: 'physical_IP', emptyValue:() => <em>NA</em>},
         { title: 'Project Name', field: 'project_NAME', emptyValue:() => <em>NA</em>},
-        { title: 'Environment', field: 'environment', emptyValue:() => <em>NA</em>, filtering:"multi-select"},
-        { title: 'OS', field: 'os', emptyValue:() => <em>NA</em>},
+        {
+          title: 'Environment',
+          field: 'environment',
+          lookup: {'PROD':'PROD','TEST':'TEST'},
+          editComponent: (props) => (
+            <select
+              value={props.value}
+              onChange={(e) => props.onChange(e.target.value)}
+              style={{padding:'3px',background:'white', outline:'none',border:'none',borderBottom:'1px solid'}}
+            >
+              {categories.map((category) => (
+                <option key={category} value={category}>
+                  {category}
+                </option>
+              ))}
+            </select>
+          ),
+          
+        },
+        // { title: 'Environment', field: 'environment', emptyValue:() => <em>NA</em>, filtering:"multi-select"},
+        { title: 'OS', field: 'os', emptyValue:() => <em>NA</em>,lookup:{'SUSE':'SUSE','UBUNTU':'UBUNTU','REDHAT':'REDHAT'},
+        editComponent: (props) => (
+          <select
+            value={props.value}
+            onChange={(e) => props.onChange(e.target.value)}
+            style={{padding:'3px',background:'white', outline:'none',border:'none',borderBottom:'1px solid'}}
+          >
+            {osdetails.map((category) => (
+              <option key={category} value={category}>
+                {category}
+              </option>
+            ))}
+          </select>
+        ),
+      },
         { title: 'Location', field: 'location', emptyValue:() => <em>NA</em>},
         { title: 'Power Status', field: 'power_STATUS', emptyValue:() => <em>NA</em>},
         // { title: 'Birth Year', field: 'birthYear', type: 'numeric' },
@@ -166,7 +203,7 @@ const MainTable = () => {
           }}
           style={{ maxHeight: '90vh', overflow: 'auto' }}
         //   actions={[{icon:()=><MdOutlineHideSource/>, onClick:()=> {setFilter(!filter); console.log(filter);}, isFreeAction:true}]}
-        options={{pagination:false,filtering:true,exportButton:true,grouping:true,columnsButton:true,exportAllData:true,maxBodyHeight: '70vh',}}
+        options={{pagination:false,filtering:true,exportButton:true,grouping:true,columnsButton:true,exportAllData:true,maxBodyHeight: '70vh',addRowPosition:"first",headerStyle:{fontSize:'13px'},cellStyle:{fontSize:'13px'}}}
         />
         </div>
         </div>
