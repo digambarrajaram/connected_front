@@ -3,6 +3,7 @@ import MainTable from './MainTable'
 import Header from '../Header/Header'
 
 const Hardware = () => {
+  
   return (
     <div className="App" style={{height:'100vh'}}>
 

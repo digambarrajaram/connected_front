@@ -9,18 +9,32 @@ const MainTable = () => {
 
     const [data,setData] = useState([]);
 
+
     // const [filter,setFilter] = useState(false);
     const addUpdateData = async (newData) =>{
+        newData.podate = formatDate(newData.podate);
+        newData.approvaldate = formatDate(newData.approvaldate);
+        newData.warstdate = formatDate(newData.warstdate);
+        newData.wareddate = formatDate(newData.wareddate);
+        newData.amcstdate = formatDate(newData.amcstdate);
+        newData.amceddate = formatDate(newData.amceddate);
+        newData.expdate = formatDate(newData.expdate);
+        newData.principaleosupport = formatDate(newData.principaleosupport);
+        newData.principaleoservice = formatDate(newData.principaleoservice);
+        
         const serverdata = await axios.post("/inventory/addhardware",newData);
-        console.log(serverdata.data); 
-        window.location.reload(true) 
+        console.log(serverdata.data);
+        // window.location.reload(true)
     }
 
+    // console.log(count);
     const deleteData = async (sid) => {
         const deleteserverdata = await axios.post(`/inventory/deletehardware/${sid}`);
         console.log(deleteserverdata.data);
-        window.location.reload(true) 
+        // window.location.reload(true) 
+        // getdata();
     }
+
 
     const getdata = async () => {
   
@@ -30,10 +44,17 @@ const MainTable = () => {
   
       setData(response.data);
     }
+
+    // console.log(count);
     
   useEffect(() => {
     getdata();
   }, [])
+
+  const formatDate = (date) => {
+    const options = { day: 'numeric', month: 'short', year: 'numeric' };
+    return new Date(date).toLocaleDateString('en-GB', options);
+  };
 
   const categories = ['NA','Intel',"AMD","SAN Switch","Storage","P-Series","HMC"];
   const location = ['NA','Pune-DC',"BLR-DC","NDR-DC"];
@@ -52,7 +73,7 @@ const MainTable = () => {
           },
           
         { title: 'Asset No.', field: 'assetno', emptyValue:() => <em>NA</em> },
-        { title: 'Device Sr.', field: 'deviceserialno', emptyValue:() => <em>NA</em>},
+        { title: 'Device Serial No.', field: 'deviceserialno', emptyValue:() => <em>NA</em>},
         { title: 'ILO/Physical Ip', field: 'ilophysicalip', emptyValue:() => <em>NA</em>},
         { title: 'Device Type', field: 'devicetype', emptyValue:() => <em>NA</em>,
           lookup: {'Intel':"Intel","AMD":"AMD","SAN Switch":"SAN Switch","Storage":"Storage","P-Series":"P-Series","HMC":"HMC"},
@@ -73,40 +94,7 @@ const MainTable = () => {
         { title: 'CPU Series', field: 'cpuseries', emptyValue:() => <em>NA</em>},
 
         { title: 'Project Name', field: 'project', emptyValue:() => <em>NA</em>},
-        // {
-        //   title: 'Environment',
-        //   field: 'environment',
-        //   lookup: {'PROD':'PROD','TEST':'TEST'},
-        //   editComponent: (props) => (
-        //     <select
-        //       value={props.value}
-        //       onChange={(e) => props.onChange(e.target.value)}
-        //       style={{padding:'3px',background:'white', outline:'none',border:'none',borderBottom:'1px solid'}}
-        //     >
-        //       {categories.map((category) => (
-        //         <option key={category} value={category}>
-        //           {category}
-        //         </option>
-        //       ))}
-        //     </select>
-        //   ),
-          
-        // },
-      //   { title: 'OS', field: 'os', emptyValue:() => <em>NA</em>,lookup:{'SUSE':'SUSE','UBUNTU':'UBUNTU','REDHAT':'REDHAT'},
-      //   editComponent: (props) => (
-      //     <select
-      //       value={props.value}
-      //       onChange={(e) => props.onChange(e.target.value)}
-      //       style={{padding:'3px',background:'white', outline:'none',border:'none',borderBottom:'1px solid'}}
-      //     >
-      //       {osdetails.map((category) => (
-      //         <option key={category} value={category}>
-      //           {category}
-      //         </option>
-      //       ))}
-      //     </select>
-      //   ),
-      // },
+
         { title: 'Location', field: 'location', emptyValue:() => <em>NA</em>,     
         lookup: {'Pune-DC':'Pune-DC',"BLR-DC":"BLR-DC","NDR-DC":"NDR-DC"},
         editComponent: (props) => (
@@ -124,13 +112,31 @@ const MainTable = () => {
         ),},
         { title: 'Socket', field: 'socket', emptyValue:() => <em>NA</em>},
         { title: 'Core per socket', field: 'corepercpu', emptyValue:() => <em>NA</em>},
-        { title: 'Total Cores', field: 'totalcores', emptyValue:() => <em>NA</em>},
+        { title: 'Total Cores', field: 'totalcores',
+        render: (rowData) => rowData.socket * rowData.corepercpu,
+        editable: 'never',
+        },
         { title: 'Memory', field: 'memory', emptyValue:() => <em>NA</em>},
         { title: 'Physical HDD', field: 'physicalhdd', emptyValue:() => <em>NA</em>},
         { title: 'App No.', field: 'approvalno', emptyValue:() => <em>NA</em>},
-        { title: 'App Date', field: 'approvaldate', emptyValue:() => <em>NA</em>},
+        { title: 'App Date', field: 'approvaldate', emptyValue:() => <em>NA</em>,
+        editComponent: (props) => (
+          <input
+            type="date"
+            value={props.value}
+            onChange={(e) => props.onChange(e.target.value)}
+          />
+        ),},
         { title: 'PO No', field: 'pono', emptyValue:() => <em>NA</em>},
-        { title: 'PO Date', field: 'podate', emptyValue:() => <em>NA</em>},
+        { title: 'PO Date', field: 'podate', emptyValue:() => <em>NA</em>,
+        editComponent: (props) => (
+          <input
+            type="date"
+            value={props.value}
+            onChange={(e) => props.onChange(e.target.value)}
+          />
+        ),
+        },
         { title: 'AMC/Warranty', field: 'devamcwar', emptyValue:() => <em>NA</em>,
         lookup: {'AMC':'AMC',"Warranty":"Warranty"},
         editComponent: (props) => (
@@ -146,11 +152,46 @@ const MainTable = () => {
             ))}
           </select>
         ),},
-        { title: 'Warranty Start', field: 'warstdate', emptyValue:() => <em>NA</em>},
-        { title: 'Warranty End', field: 'wareddate', emptyValue:() => <em>NA</em>},
-        { title: 'AMC Start', field: 'amcstdate', emptyValue:() => <em>NA</em>},
-        { title: 'AMC End', field: 'amceddate', emptyValue:() => <em>NA</em>},
-        { title: 'Expiry', field: 'expdate', emptyValue:() => <em>NA</em>},
+        { title: 'Warranty Start', field: 'warstdate', emptyValue:() => <em>NA</em>,
+        editComponent: (props) => (
+          <input
+            type="date"
+            value={props.value}
+            onChange={(e) => props.onChange(e.target.value)}
+          />
+        ),},
+        { title: 'Warranty End', field: 'wareddate', emptyValue:() => <em>NA</em>,
+        editComponent: (props) => (
+          <input
+            type="date"
+            value={props.value}
+            onChange={(e) => props.onChange(e.target.value)}
+          />
+        ),},
+        { title: 'AMC Start', field: 'amcstdate', emptyValue:() => <em>NA</em>,
+        editComponent: (props) => (
+          <input
+            type="date"
+            value={props.value}
+            onChange={(e) => props.onChange(e.target.value)}
+          />
+        ),},
+        { title: 'AMC End', field: 'amceddate', emptyValue:() => <em>NA</em>,
+        editComponent: (props) => (
+          <input
+            type="date"
+            value={props.value}
+            onChange={(e) => props.onChange(e.target.value)}
+          />
+        ),},
+        { title: 'Expiry', field: 'expdate', emptyValue:() => <em>NA</em>,
+        editComponent: (props) => (
+          <input
+            type="date"
+            value={props.value}
+            onChange={(e) => props.onChange(e.target.value)}
+          />
+        ),},
         { title: 'Vendor AMC Name', field: 'vdamcname', emptyValue:() => <em>NA</em>},
         { title: 'Device Insurance', field: 'deviceinsurance', emptyValue:() => <em>NA</em>,
         lookup: {'Yes':'Yes',"No":"No"},
@@ -167,23 +208,25 @@ const MainTable = () => {
             ))}
           </select>
         ),},
-        { title: 'Principal End of Support', field: 'principaleosupport', emptyValue:() => <em>NA</em>},
-        { title: 'Principal End of Service', field: 'principaleoservice', emptyValue:() => <em>NA</em>},
-
-
-
-
-
-
-
-
-
-
-
-
+        { title: 'Principal End of Support', field: 'principaleosupport', emptyValue:() => <em>NA</em>,
+        editComponent: (props) => (
+          <input
+            type="date"
+            value={props.value}
+            onChange={(e) => props.onChange(e.target.value)}
+          />
+        ),},
+        { title: 'Principal End of Service', field: 'principaleoservice', emptyValue:() => <em>NA</em>,
+        editComponent: (props) => (
+          <input
+            type="date"
+            value={props.value}
+            onChange={(e) => props.onChange(e.target.value)}
+          />
+        ),},
       ]);
     
-    
+
       return (
         <div className='container-fluid d-flex justify-content-center align-items-center'>
             <div className='mt-1' style={{width:"100%"}}>
@@ -196,6 +239,7 @@ const MainTable = () => {
             new Promise((resolve, reject) => {
                   
                 setTimeout(() => {
+                  // setData([...data, newData]);
                 //   if(newData.assetno !== undefined){
                 //     newData.assetno = newData.assetno.toUpperCase();
                 // }
@@ -227,7 +271,7 @@ const MainTable = () => {
                   const dataUpdate = [...data];
                   const index = oldData.tableData.id;
                   dataUpdate[index] = newData;
-                
+                  // setData([...dataUpdate]);
 
                     // console.log(newData.project_NAME == null);
                     
@@ -253,6 +297,7 @@ const MainTable = () => {
 
 
                   addUpdateData(newData);
+                  
                 //   setData(data);
                   resolve();
                 }, 1000)
