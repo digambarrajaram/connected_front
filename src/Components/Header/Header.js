@@ -2,7 +2,8 @@
 //import useState hook to create menu collapse state
 import React, { useState } from "react";
 //import react pro sidebar components
-import ossglogo from "../../Assets/OSSG.gif";
+// import ossglogo from "../../Assets/OSSG.gif";
+import proteanlogo from "../../Assets/protean.jpg"
 import {
   ProSidebar,
   Menu,
@@ -27,6 +28,7 @@ import { Link } from "react-router-dom";
 const Header = () => {
   
     //create initial menuCollapse state using useState hook
+    // eslint-disable-next-line
     const [menuCollapse, setMenuCollapse] = useState(false)
 
     //create a custom function that will change menucollapse state from false to true and true to false
@@ -44,7 +46,7 @@ const Header = () => {
           <div className="logotext mt-3 text-center">
               {/* small and big change using menucollapse state */}
               {/* <p>{menuCollapse ? "Logo" : "Protean eGov"}</p> */}
-              <img src={ossglogo} style={{width:"100%",height:"100%"}} className="mt-1 mb-3"></img>
+              <img src={proteanlogo} alt="logo" style={{width:"75%",height:"100%"}} className="mt-1 mb-3"></img>
             </div>
             <div className="closemenu" onClick={menuIconClick}>
                 {/* changing menu collapse icon on click */}

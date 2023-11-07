@@ -37,7 +37,7 @@ const MainTable = () => {
 
   const categories = ['NA','PROD', 'TEST'];
   const osdetails = ['NA','SUSE', 'UBUNTU','REDHAT'];
-
+// eslint-disable-next-line
     const [columns, setColumns] = useState([
         {
             title: 'No.',
