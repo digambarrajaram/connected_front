@@ -8,6 +8,7 @@ import "./MainTable.css";
 const MainTable = () => {
 
     const [data,setData] = useState([]);
+    // const [groupedData,setGroupData] = useState([]);
 
 
     // const [filter,setFilter] = useState(false);
@@ -24,14 +25,14 @@ const MainTable = () => {
         
         const serverdata = await axios.post("/inventory/addhardware",newData);
         console.log(serverdata.data);
-        // window.location.reload(true)
+        window.location.reload(true)
     }
 
     // console.log(count);
     const deleteData = async (sid) => {
         const deleteserverdata = await axios.post(`/inventory/deletehardware/${sid}`);
         console.log(deleteserverdata.data);
-        // window.location.reload(true) 
+        window.location.reload(true) 
         // getdata();
     }
 
@@ -51,6 +52,9 @@ const MainTable = () => {
     getdata();
   }, [])
 
+
+
+
   const formatDate = (date) => {
     const options = { day: 'numeric', month: 'short', year: 'numeric' };
     return new Date(date).toLocaleDateString('en-GB', options);
@@ -60,6 +64,7 @@ const MainTable = () => {
   const location = ['NA','Pune-DC',"BLR-DC","NDR-DC"];
   const amcwar = ['NA','AMC',"Warranty"];
   const insurance = ['NA','Yes',"No"];
+  const socketno = [1,2,3,4,5,6,7,8,9,10,11,12,13,14,15,16,17,18,19,20]
 
 
 
@@ -110,14 +115,40 @@ const MainTable = () => {
             ))}
           </select>
         ),},
-        { title: 'Socket', field: 'socket', emptyValue:() => <em>NA</em>},
-        { title: 'Core per socket', field: 'corepercpu', emptyValue:() => <em>NA</em>},
+        { title: 'Socket', field: 'socket', emptyValue:() => <em>NA</em>,
+        editComponent: (props) => (
+          <select
+            value={props.value}
+            onChange={(e) => props.onChange(e.target.value)}
+            style={{padding:'3px',background:'white', outline:'none',border:'none',borderBottom:'1px solid'}}
+          >
+            {socketno.map((category) => (
+              <option key={category} value={category}>
+                {category}
+              </option>
+            ))}
+          </select>
+        ),},
+        { title: 'Core per socket', field: 'corepercpu', emptyValue:() => <em>NA</em>,
+        editComponent: (props) => (
+          <select
+            value={props.value}
+            onChange={(e) => props.onChange(e.target.value)}
+            style={{padding:'3px',background:'white', outline:'none',border:'none',borderBottom:'1px solid'}}
+          >
+            {socketno.map((category) => (
+              <option key={category} value={category}>
+                {category}
+              </option>
+            ))}
+          </select>
+        ),},
         { title: 'Total Cores', field: 'totalcores',
         render: (rowData) => rowData.socket * rowData.corepercpu,
         editable: 'never',
         },
-        { title: 'Memory', field: 'memory', emptyValue:() => <em>NA</em>},
-        { title: 'Physical HDD', field: 'physicalhdd', emptyValue:() => <em>NA</em>},
+        { title: 'Memory (GB)', field: 'memory', emptyValue:() => <em>NA</em>},
+        { title: 'Physical HDD (GB)', field: 'physicalhdd', emptyValue:() => <em>NA</em>},
         { title: 'App No.', field: 'approvalno', emptyValue:() => <em>NA</em>},
         { title: 'App Date', field: 'approvaldate', emptyValue:() => <em>NA</em>,
         editComponent: (props) => (
@@ -125,6 +156,7 @@ const MainTable = () => {
             type="date"
             value={props.value}
             onChange={(e) => props.onChange(e.target.value)}
+            className='datecs'
           />
         ),},
         { title: 'PO No', field: 'pono', emptyValue:() => <em>NA</em>},
@@ -134,6 +166,7 @@ const MainTable = () => {
             type="date"
             value={props.value}
             onChange={(e) => props.onChange(e.target.value)}
+            className='datecs'
           />
         ),
         },
@@ -158,6 +191,7 @@ const MainTable = () => {
             type="date"
             value={props.value}
             onChange={(e) => props.onChange(e.target.value)}
+            className='datecs'
           />
         ),},
         { title: 'Warranty End', field: 'wareddate', emptyValue:() => <em>NA</em>,
@@ -166,6 +200,7 @@ const MainTable = () => {
             type="date"
             value={props.value}
             onChange={(e) => props.onChange(e.target.value)}
+            className='datecs'
           />
         ),},
         { title: 'AMC Start', field: 'amcstdate', emptyValue:() => <em>NA</em>,
@@ -174,6 +209,7 @@ const MainTable = () => {
             type="date"
             value={props.value}
             onChange={(e) => props.onChange(e.target.value)}
+            className='datecs'
           />
         ),},
         { title: 'AMC End', field: 'amceddate', emptyValue:() => <em>NA</em>,
@@ -182,6 +218,7 @@ const MainTable = () => {
             type="date"
             value={props.value}
             onChange={(e) => props.onChange(e.target.value)}
+            className='datecs'
           />
         ),},
         { title: 'Expiry', field: 'expdate', emptyValue:() => <em>NA</em>,
@@ -190,6 +227,7 @@ const MainTable = () => {
             type="date"
             value={props.value}
             onChange={(e) => props.onChange(e.target.value)}
+            className='datecs'
           />
         ),},
         { title: 'Vendor AMC Name', field: 'vdamcname', emptyValue:() => <em>NA</em>},
@@ -214,6 +252,7 @@ const MainTable = () => {
             type="date"
             value={props.value}
             onChange={(e) => props.onChange(e.target.value)}
+            className='datecs'
           />
         ),},
         { title: 'Principal End of Service', field: 'principaleoservice', emptyValue:() => <em>NA</em>,
@@ -222,6 +261,7 @@ const MainTable = () => {
             type="date"
             value={props.value}
             onChange={(e) => props.onChange(e.target.value)}
+            className='datecs'
           />
         ),},
       ]);
@@ -229,6 +269,7 @@ const MainTable = () => {
 
       return (
         <div className='container-fluid d-flex justify-content-center align-items-center'>
+
             <div className='mt-1' style={{width:"100%"}}>
         <MaterialTable
           title="Hardware Inventory"
