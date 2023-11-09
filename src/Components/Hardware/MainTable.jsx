@@ -22,8 +22,10 @@ const MainTable = () => {
         newData.expdate = formatDate(newData.expdate);
         newData.principaleosupport = formatDate(newData.principaleosupport);
         newData.principaleoservice = formatDate(newData.principaleoservice);
+        newData.totalcores = newData.corepercpu * newData.socket;
         
         const serverdata = await axios.post("/inventory/addhardware",newData);
+        console.log(newData);
         console.log(serverdata.data);
         window.location.reload(true)
     }
@@ -74,7 +76,7 @@ const MainTable = () => {
         {
             title: 'No.',
             render: (rowData) => rowData.tableData.id + 1,
-            editable: 'never',
+            // editable: 'never',
           },
           
         { title: 'Asset No.', field: 'assetno', emptyValue:() => <em>NA</em> },
