@@ -62,7 +62,7 @@ const MainTable = () => {
     return new Date(date).toLocaleDateString('en-GB', options);
   };
 
-  const categories = ['NA','Intel',"AMD","SAN Switch","Storage","P-Series","HMC"];
+  const categories = ['NA','Intel',"AMD","SAN Switch","Storage","P-Series","HMC","ESX"];
   const location = ['NA','Pune-DC',"BLR-DC","NDR-DC"];
   const amcwar = ['NA','AMC',"Warranty"];
   const insurance = ['NA','Yes',"No"];
@@ -83,7 +83,7 @@ const MainTable = () => {
         { title: 'Device Serial No.', field: 'deviceserialno', emptyValue:() => <em>NA</em>},
         { title: 'ILO/Physical Ip', field: 'ilophysicalip', emptyValue:() => <em>NA</em>},
         { title: 'Device Type', field: 'devicetype', emptyValue:() => <em>NA</em>,
-          lookup: {'Intel':"Intel","AMD":"AMD","SAN Switch":"SAN Switch","Storage":"Storage","P-Series":"P-Series","HMC":"HMC"},
+          lookup: {'Intel':"Intel","AMD":"AMD","SAN Switch":"SAN Switch","Storage":"Storage","P-Series":"P-Series","HMC":"HMC","ESX":"ESX"},
           editComponent: (props) => (
             <select
               value={props.value}
@@ -151,8 +151,8 @@ const MainTable = () => {
         },
         { title: 'Memory (GB)', field: 'memory', emptyValue:() => <em>NA</em>},
         { title: 'Physical HDD (GB)', field: 'physicalhdd', emptyValue:() => <em>NA</em>},
-        { title: 'App No.', field: 'approvalno', emptyValue:() => <em>NA</em>},
-        { title: 'App Date', field: 'approvaldate', emptyValue:() => <em>NA</em>,
+        { title: 'Approval No.', field: 'approvalno', emptyValue:() => <em>NA</em>},
+        { title: 'Approval Date', field: 'approvaldate', emptyValue:() => <em>NA</em>,
         editComponent: (props) => (
           <input
             type="date"
@@ -162,7 +162,7 @@ const MainTable = () => {
           />
         ),},
         { title: 'PO No', field: 'pono', emptyValue:() => <em>NA</em>},
-        { title: 'PO Date', field: 'podate', emptyValue:() => <em>NA</em>,
+        { title: 'PO Date   ', field: 'podate', emptyValue:() => <em>NA</em>,
         editComponent: (props) => (
           <input
             type="date"

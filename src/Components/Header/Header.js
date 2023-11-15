@@ -25,11 +25,16 @@ import "./Header.css";
 import { Link } from "react-router-dom";
 
 
-const Header = () => {
+const Header = ({setLogin}) => {
   
     //create initial menuCollapse state using useState hook
     // eslint-disable-next-line
     const [menuCollapse, setMenuCollapse] = useState(false)
+
+    const handellock = () =>{
+      localStorage.clear();
+      setLogin(false);
+    }
 
     //create a custom function that will change menucollapse state from false to true and true to false
   const menuIconClick = () => {
@@ -67,7 +72,7 @@ const Header = () => {
           </SidebarContent>
           <SidebarFooter>
             <Menu iconShape="square">
-              <MenuItem icon={<FiLogOut />}>Logout</MenuItem>
+             <MenuItem icon={<FiLogOut />}><Link className="act" style={{color:'black'}} onClick={handellock}>Logout</Link></MenuItem>
             </Menu>
           </SidebarFooter>
         </ProSidebar>

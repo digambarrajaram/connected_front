@@ -2,14 +2,14 @@ import React from 'react'
 import MainTable from './MainTable'
 import Header from '../Header/Header'
 
-const Hardware = () => {
+const Hardware = ({setLogin}) => {
   
   return (
     <div className="App" style={{height:'100vh'}}>
 
     <div className='row' style={{height:'100vh'}}>
       <div className='col-2'>
-      <Header />
+      <Header setLogin={setLogin}/>
       </div>
       <div className='col-10 d-flex justify-content-between align-items-center flex-column'>
         <div className='container'>

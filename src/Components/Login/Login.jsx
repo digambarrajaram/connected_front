@@ -1,0 +1,69 @@
+import React, { useState } from 'react'
+// import logo from "../../Assets/protean.jpg"
+
+const Login = ({setLogin}) => {
+    const [log, setLog] = useState({
+        username: "", password: ""
+    });
+
+    const handelInp = (e) => {
+        const { name, value } = e.target;
+
+        setLog((pre) => {
+            return {
+                ...pre,
+                [name]: value
+            }
+        })
+    }
+
+    const postData = () =>{
+        localStorage.setItem("username", log.username);
+        localStorage.setItem("password", log.password);
+
+        const us = localStorage.getItem("username");
+        const ps = localStorage.getItem("password");
+        if(us !== "ritesh" && ps !== "ritesh"){
+
+            console.log(log);
+            setLogin(false);
+
+        }else{
+            setLogin(true);
+            localStorage.setItem("username", log.username);
+            localStorage.setItem("password", log.password);
+
+        }
+    }
+
+    return (
+        <>
+        <div style={{height:'90vh'}} className='d-flex justify-content-center align-items-center flex-column'>
+            <h1><i>OSSG Inventory</i></h1>
+            <div className="container m-auto mt-5 shadow p-3 mb-2 bg-body rounded" style={{width:"50%"}}>
+                {/* <div className="col-md-6 d-flex justify-content-center align-items-center">
+                    <img src={logo} alt="logo" className='w-75 h-75' />
+                </div> */}
+                <div className="mt-4">
+                    <h2>Login Form</h2>
+                    <form>
+
+                        <div class="mb-3">
+                            <label class="form-label">Username</label>
+                            <input type="email" class="form-control" name="username" value={log.username} onChange={handelInp} id="exampleInputEmail1" aria-describedby="emailHelp" />
+                        </div>
+                        <div class="mb-3">
+                            <label class="form-label">Password</label>
+                            <input type="password" class="form-control" name="password" value={log.password} onChange={handelInp} id="exampleInputPassword1" />
+                        </div>
+                        <button type="submit" class="btn btn-primary" onClick={postData}>Login</button>
+                    </form>
+                </div>
+
+            </div>
+            </div>
+        </>
+    )
+}
+
+export default Login
