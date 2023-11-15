@@ -50,7 +50,7 @@ const Login = ({setLogin}) => {
 
                         <div class="mb-3">
                             <label class="form-label">Username</label>
-                            <input type="email" class="form-control" name="username" value={log.username} onChange={handelInp} id="exampleInputEmail1" aria-describedby="emailHelp" />
+                            <input type="text" class="form-control" name="username" value={log.username} onChange={handelInp} id="exampleInputEmail1" aria-describedby="emailHelp" />
                         </div>
                         <div class="mb-3">
                             <label class="form-label">Password</label>

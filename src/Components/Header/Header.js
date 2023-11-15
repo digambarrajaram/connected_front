@@ -68,6 +68,8 @@ const Header = ({setLogin}) => {
 <MenuItem data={{route:"/changelog"}} className="act" icon={<FaList />}><Link className="act" style={{color:'black'}} to="/changelog">Change Log</Link></MenuItem>
 <MenuItem data={{route:"/powerof"}} className="act" icon={<FaPowerOff />}><Link className="act" style={{color:'black'}} to="/powerof">Powerd OFF VMs</Link></MenuItem>
 <MenuItem data={{route:"/decommision"}} className="act" icon={<GiGreenPower />}><Link className="act" style={{color:'black'}} to="/decommision">Decommision</Link></MenuItem>
+<MenuItem data={{route:"/newuser"}} className="act" icon={<GiGreenPower />}><Link className="act" style={{color:'black'}} to="/newuser">New User</Link></MenuItem>
+
             </Menu>
           </SidebarContent>
           <SidebarFooter>

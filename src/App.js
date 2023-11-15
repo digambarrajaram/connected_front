@@ -9,6 +9,7 @@ import Decommision from './Components/Decommision/Decommision';
 import Linux from './Components/Linux/Linux';
 import Hardware from './Components/Hardware/Hardware';
 import Login from './Components/Login/Login';
+import Signup from './Components/Signup/Signup';
 
 function App() {
 
@@ -25,10 +26,12 @@ function App() {
     <Routes>
     <Route path="linux" element={<Linux setLogin={setLogin}/>}/>
     <Route path="hardware" element={<Hardware setLogin={setLogin}/>}/>
-     <Route path="changelog" element={<Changelog/>}/>
-     <Route path="powerof" element={<Powerof/>}/>
-     <Route path="decommision" element={<Decommision/>}/>
-     <Route path="/" element={<Home/>}/>
+     <Route path="changelog" element={<Changelog setLogin={setLogin}/>}/>
+     <Route path="powerof" element={<Powerof setLogin={setLogin}/>}/>
+     <Route path="decommision" element={<Decommision setLogin={setLogin}/>}/>
+     <Route path="newuser" element={<Signup setLogin={setLogin}/>}/>
+
+     <Route path="/" element={<Home setLogin={setLogin}/>}/>
     </Routes>
 
     </BrowserRouter> :<Login setLogin={setLogin}/>
