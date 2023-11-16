@@ -36,6 +36,7 @@ const Header = ({setLogin}) => {
       localStorage.clear();
       setLogin(false);
       navigate("/");
+      window.location.reload(true);
     }
 
     //create a custom function that will change menucollapse state from false to true and true to false

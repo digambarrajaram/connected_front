@@ -18,6 +18,9 @@ function App() {
   const us = localStorage.getItem("username");
   const ps = localStorage.getItem("password");
 
+  console.log(us);
+  console.log(ps);
+
   // if(us !== null && ps !== null){
   //   setLogin(true);
   // }
