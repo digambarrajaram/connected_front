@@ -22,11 +22,12 @@ import { GiGreenPower } from "react-icons/gi";
 //import sidebar css from react-pro-sidebar module and our custom css 
 import "react-pro-sidebar/dist/css/styles.css";
 import "./Header.css";
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 
 
 const Header = ({setLogin}) => {
-  
+
+    const navigate = useNavigate();
     //create initial menuCollapse state using useState hook
     // eslint-disable-next-line
     const [menuCollapse, setMenuCollapse] = useState(false)
@@ -34,6 +35,7 @@ const Header = ({setLogin}) => {
     const handellock = () =>{
       localStorage.clear();
       setLogin(false);
+      navigate("/");
     }
 
     //create a custom function that will change menucollapse state from false to true and true to false

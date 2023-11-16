@@ -17,10 +17,15 @@ function App() {
 
   const us = localStorage.getItem("username");
   const ps = localStorage.getItem("password");
+
+  // if(us !== null && ps !== null){
+  //   setLogin(true);
+  // }
+
   return (
 
 
-   (us==="ritesh" && ps === "ritesh") ?
+   (ps !== null && us !== null) ?
     
     <BrowserRouter>
     <Routes>

@@ -1,3 +1,4 @@
+import Axios from 'axios';
 import React, { useState } from 'react'
 // import logo from "../../Assets/protean.jpg"
 
@@ -17,23 +18,41 @@ const Login = ({setLogin}) => {
         })
     }
 
-    const postData = () =>{
-        localStorage.setItem("username", log.username);
-        localStorage.setItem("password", log.password);
+    const postData = async (e) =>{
 
-        const us = localStorage.getItem("username");
-        const ps = localStorage.getItem("password");
-        if(us !== "ritesh" && ps !== "ritesh"){
+        e.preventDefault();
+        const userd = await Axios.get(`inventory/login/${log.username}`);
+        if(userd.data!==''){
 
-            console.log(log);
-            setLogin(false);
-
+            if(userd.data.password === log.password){
+                localStorage.setItem("username", log.username);
+                localStorage.setItem("password", log.password);
+                setLogin(true);
+            }else{
+                setLogin(false);
+            }
         }else{
-            setLogin(true);
-            localStorage.setItem("username", log.username);
-            localStorage.setItem("password", log.password);
-
+            setLogin(false);
         }
+
+        // alert(userd.data);
+
+
+
+
+        // const us = localStorage.getItem("username");
+        // const ps = localStorage.getItem("password");
+        // if(us !== "ritesh" && ps !== "ritesh"){
+
+        //     console.log(log);
+            
+
+        // }else{
+            
+        //     localStorage.setItem("username", log.username);
+        //     localStorage.setItem("password", log.password);
+
+        // }
     }
 
     return (

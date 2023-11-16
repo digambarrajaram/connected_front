@@ -1,7 +1,10 @@
+import axios from 'axios';
 import React, { useState } from 'react'
+import { useNavigate } from 'react-router-dom';
 
 const Form = () => {
 
+    const navigate = useNavigate();
     const [log, setLog] = useState({
         username: "", password: ""
     });
@@ -17,23 +20,16 @@ const Form = () => {
         })
     }
 
-    const postData = () =>{
-        // localStorage.setItem("username", log.username);
-        // localStorage.setItem("password", log.password);
+    const postData = async (e) =>{
+        e.preventDefault();
+        // alert(log);
+        // console.log(log);
 
-        // const us = localStorage.getItem("username");
-        // const ps = localStorage.getItem("password");
-        // if(us !== "ritesh" && ps !== "ritesh"){
+        const useradd = await axios.post('/inventory/signup',log);
+        console.log(useradd.data);
+        // window.location.reload(true) 
+        navigate("/")
 
-        //     console.log(log);
-        //     setLogin(false);
-
-        // }else{
-        //     setLogin(true);
-        //     localStorage.setItem("username", log.username);
-        //     localStorage.setItem("password", log.password);
-
-        // }
     }
 
   return (
