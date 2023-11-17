@@ -17,6 +17,7 @@ import {
 import { FaList, FaPowerOff } from "react-icons/fa";
 import { FiHome, FiLogOut} from "react-icons/fi";
 import { GiGreenPower } from "react-icons/gi";
+import { FaUserPlus } from "react-icons/fa6";
 
 
 //import sidebar css from react-pro-sidebar module and our custom css 
@@ -67,11 +68,11 @@ const Header = ({setLogin}) => {
           </SidebarHeader>
           <SidebarContent>
             <Menu iconShape="square">
-<MenuItem data={{route:"/"}} className="act" icon={<FiHome />}> <Link className="act" style={{color:'black'}} to="/">Home</Link></MenuItem>
-<MenuItem data={{route:"/changelog"}} className="act" icon={<FaList />}><Link className="act" style={{color:'black'}} to="/changelog">Change Log</Link></MenuItem>
-<MenuItem data={{route:"/powerof"}} className="act" icon={<FaPowerOff />}><Link className="act" style={{color:'black'}} to="/powerof">Powerd OFF VMs</Link></MenuItem>
-<MenuItem data={{route:"/decommision"}} className="act" icon={<GiGreenPower />}><Link className="act" style={{color:'black'}} to="/decommision">Decommision</Link></MenuItem>
-<MenuItem data={{route:"/newuser"}} className="act" icon={<GiGreenPower />}><Link className="act" style={{color:'black'}} to="/newuser">New User</Link></MenuItem>
+              <MenuItem data={{route:"/"}} className="act" icon={<FiHome />}> <Link className="act" style={{color:'black'}} to="/">Home</Link></MenuItem>
+              <MenuItem data={{route:"/changelog"}} className="act" icon={<FaList />}><Link className="act" style={{color:'black'}} to="/changelog">Change Log</Link></MenuItem>
+              <MenuItem data={{route:"/powerof"}} className="act" icon={<FaPowerOff />}><Link className="act" style={{color:'black'}} to="/powerof">Powerd OFF VMs</Link></MenuItem>
+              <MenuItem data={{route:"/decommision"}} className="act" icon={<GiGreenPower />}><Link className="act" style={{color:'black'}} to="/decommision">Decommision</Link></MenuItem>
+              <MenuItem data={{route:"/newuser"}} className="act" icon={<FaUserPlus />}><Link className="act" style={{color:'black'}} to="/newuser">New User</Link></MenuItem>
 
             </Menu>
           </SidebarContent>

@@ -25,10 +25,30 @@ const Form = () => {
         // alert(log);
         // console.log(log);
 
-        const useradd = await axios.post('/inventory/signup',log);
-        console.log(useradd.data);
-        // window.location.reload(true) 
-        navigate("/")
+        if(log.username !=="" && log.password !==""){
+
+            const ispresent = await axios.get(`/inventory/login/${log.username}`);
+            console.log(ispresent.data);
+            console.log(ispresent.data.username);
+
+            if(ispresent.data.username !== undefined){
+                const useradd = await axios.post('/inventory/signup',log);
+                console.log(useradd.data);
+                alert("User created Successfully");
+                // window.location.reload(true) 
+                navigate("/")
+            }else{
+                alert("User Already Present");
+                setLog({
+                    username: "", password: ""
+                });
+            }
+            
+        }else{
+            alert("Enter both the feilds");
+        }
+
+        
 
     }
 
