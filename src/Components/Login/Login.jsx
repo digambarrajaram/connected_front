@@ -1,6 +1,7 @@
 import Axios from 'axios';
 import React, { useState } from 'react'
 // import logo from "../../Assets/protean.jpg"
+import * as CryptoJS from "crypto-js";
 
 const Login = ({setLogin}) => {
     const [log, setLog] = useState({
@@ -18,21 +19,30 @@ const Login = ({setLogin}) => {
         })
     }
 
+    let secretkey="OSSG"; 
+    const Decrypt = (data) =>{
+        let bytes = CryptoJS.AES.decrypt(data,secretkey);
+        var dec = bytes.toString(CryptoJS.enc.Utf8);
+        return dec;         
+      }
+
     const postData = async (e) =>{
 
         e.preventDefault();
         const userd = await Axios.get(`inventory/login/${log.username}`);
         if(userd.data!==''){
 
-            if(userd.data.password === log.password){
-                localStorage.setItem("username", log.username);
-                localStorage.setItem("password", log.password);
+            if(Decrypt(userd.data.password) === log.password){
+                localStorage.setItem("username", userd.data.username);
+                localStorage.setItem("password", userd.data.password);
                 setLogin(true);
             }else{
                 setLogin(false);
+                alert("Enter Correct Credentials");
             }
         }else{
             setLogin(false);
+            alert("Enter correct credentials");
         }
 
         // alert(userd.data);

@@ -1,6 +1,7 @@
 import axios from 'axios';
 import React, { useState } from 'react'
 import { useNavigate } from 'react-router-dom';
+import * as CryptoJS from "crypto-js";
 
 const Form = () => {
 
@@ -19,6 +20,19 @@ const Form = () => {
             }
         })
     }
+    let encrPass="";
+    let secretkey="OSSG"; 
+
+    const Encrypt = (data) =>{
+        encrPass = CryptoJS.AES.encrypt(data,secretkey).toString();
+        return encrPass;        
+       }
+     
+      
+
+    //    Encrypt("Ritesh");
+    //    Decrypt("U2FsdGVkX1+vDS+HfoOjxPo6eq3g2R8opv9XDPOvXEQ=")
+
 
     const postData = async (e) =>{
         e.preventDefault();
@@ -31,7 +45,8 @@ const Form = () => {
             console.log(ispresent.data);
             console.log(ispresent.data.username);
 
-            if(ispresent.data.username !== undefined){
+            if(ispresent.data.username === undefined){
+                log.password = Encrypt(log.password);
                 const useradd = await axios.post('/inventory/signup',log);
                 console.log(useradd.data);
                 alert("User created Successfully");
