@@ -1,5 +1,6 @@
 import React from 'react'
 import Header from '../Header/Header'
+import ChangelogHome from '../ChangelogHome'
 
 const Changelog = () => {
   return (
@@ -11,7 +12,7 @@ const Changelog = () => {
       </div>
       <div className='col-10 d-flex justify-content-center align-items-center'>
         <div className='container'>
-            <h1>Changelog</h1>
+            <ChangelogHome/>
       </div>
       </div>
       </div>

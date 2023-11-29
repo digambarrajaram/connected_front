@@ -8,6 +8,11 @@ import "./MainTable.css";
 const MainTable = () => {
 
     const [data,setData] = useState([]);
+    const [loc,setLoc] = useState([]);
+
+    // var testing;
+
+    
     // const [groupedData,setGroupData] = useState([]);
 
 
@@ -38,23 +43,52 @@ const MainTable = () => {
         // getdata();
     }
 
+    // const test = () =>{
+    //   const bl = {};
+    //   const arr = ['NA','Pune-DC',"BLR-DC","NDR-DC"];
+      
+    //   arr.map((val)=>{
+    //     Object.assign(bl,{[val]:val},bl);
+    //   })
+
+    //   return bl;
+    // }
+
+    // test();
 
     const getdata = async () => {
   
       const response = await axios.get(`/inventory/hardwarelist`);
+      
   
-      // console.log(response.data);
+      console.log(response.data[0].location);
   
       setData(response.data);
+      // getListData();
+
+      // console.log(locresponse.data);
+
+      // testing = [...new Set(response.data.map(item => item.location))];
     }
 
-    // console.log(count);
     
-  useEffect(() => {
+
+    // console.log(loc);
+    
+    useEffect(() => {
+    
     getdata();
+    const getListData = async () =>{
+      const locresponse = await axios.get(`/inventory/location`);
+      setLoc(await locresponse.data);
+      console.log(locresponse.data);
+    }
+    getListData();
   }, [])
+  
+  // console.log(loc);
 
-
+  
 
 
   const formatDate = (date) => {
@@ -62,10 +96,29 @@ const MainTable = () => {
     return new Date(date).toLocaleDateString('en-GB', options);
   };
 
-  const categories = ['NA','Intel',"AMD","SAN Switch","Storage","P-Series","HMC","ESX"];
-  const location = ['NA','Pune-DC',"BLR-DC","NDR-DC"];
+  const categories = ['NA','Intel',"AMD","SAN Switch","Storage","P-Series","HMC","ESX","Windows","SUSE 12SP2 - Central Log Server","RHEL 7.2 - Commvault Media Agenat","Open-SUSE 42 sp3 - IVR","TL - Esign","HSM","KVM"];
+  const location = ['NA','Pune-DC',"BLR-DC","NDR-DC","Mumbai"];
+  // const laoc = ["Pune-DC","BLR-DC","Mumbai"];
+  // const laoc = loc;
+  const modelno = ['Dell Power Edge R730','Dell PowerEdge R7515',
+  'Dell PowerEdge R730xd',
+  'Lenovo Thinksystem SR550',
+  'Dell PowerEdge R540',
+  'Dell PowerEdge R7515'
+  ]
+
+  const projectl = ['CRA',
+  'TIN',
+  'Common\n(VKP,e-Sign,DOT,Hosting)',
+  'Hosting',
+  'IT Infra',
+  'GST',
+  'Common',
+  'Admin',
+  'CRA UAT/Dev',
+  ]
   const amcwar = ['NA','AMC',"Warranty"];
-  const insurance = ['NA','Yes',"No"];
+  const insurance = ['NA','YES',"NO"];
   const socketno = [1,2,3,4,5,6,7,8,9,10,11,12,13,14,15,16,17,18,19,20]
 
 
@@ -83,7 +136,12 @@ const MainTable = () => {
         { title: 'Device Serial No.', field: 'deviceserialno', emptyValue:() => <em>NA</em>},
         { title: 'ILO/Physical Ip', field: 'ilophysicalip', emptyValue:() => <em>NA</em>},
         { title: 'Device Type', field: 'devicetype', emptyValue:() => <em>NA</em>,
-          lookup: {'Intel':"Intel","AMD":"AMD","SAN Switch":"SAN Switch","Storage":"Storage","P-Series":"P-Series","HMC":"HMC","ESX":"ESX"},
+          lookup: categories.reduce((acc,lo)=>{
+            // console.log(lo);
+            acc[lo] = lo;
+            console.log(acc);
+            return acc;
+          },{}),
           editComponent: (props) => (
             <select
               value={props.value}
@@ -97,13 +155,63 @@ const MainTable = () => {
               ))}
             </select>
           ),},
-        { title: 'Model No.', field: 'modelno', emptyValue:() => <em>NA</em>},
+        { title: 'Model No.', field: 'modelno', emptyValue:() => <em>NA</em>,
+        lookup: modelno.reduce((acc,lo)=>{
+          // console.log(lo);
+          acc[lo] = lo;
+          console.log(acc);
+          return acc;
+        },{}),
+        editComponent: (props) => (
+          <select
+            value={props.value}
+            onChange={(e) => props.onChange(e.target.value)}
+            style={{padding:'3px',background:'white', outline:'none',border:'none',borderBottom:'1px solid'}}
+          >
+            {modelno.map((category) => (
+              <option key={category} value={category}>
+                {category}
+              </option>
+            ))}
+          </select>
+        ),},
         { title: 'CPU Series', field: 'cpuseries', emptyValue:() => <em>NA</em>},
 
-        { title: 'Project Name', field: 'project', emptyValue:() => <em>NA</em>},
+        { title: 'Project Name', field: 'project', emptyValue:() => <em>NA</em>,
+        lookup: projectl.reduce((acc,lo)=>{
+          // console.log(lo);
+          acc[lo] = lo;
+          console.log(acc);
+          return acc;
+        },{}),
+        editComponent: (props) => (
+          <select
+            value={props.value}
+            onChange={(e) => props.onChange(e.target.value)}
+            style={{padding:'3px',background:'white', outline:'none',border:'none',borderBottom:'1px solid'}}
+          >
+            {projectl.map((category) => (
+              <option key={category} value={category}>
+                {category}
+              </option>
+            ))}
+          </select>
+        ),},
 
-        { title: 'Location', field: 'location', emptyValue:() => <em>NA</em>,     
-        lookup: {'Pune-DC':'Pune-DC',"BLR-DC":"BLR-DC","NDR-DC":"NDR-DC"},
+        { title: 'Location', field: 'location', emptyValue:() => <em>NA</em>, 
+        lookup:location.reduce((acc,lo)=>{
+          // console.log(lo);
+          acc[lo] = lo;
+          console.log(acc);
+          return acc;
+        },{}),
+        // lookup:loc.reduce((acc,lo)=>{
+        //   acc[lo] = lo;
+        //   return acc;
+        // },{}),   
+        // lookup: {'Pune-DC':'Pune-DC',"BLR-DC":"BLR-DC","NDR-DC":"NDR-DC"},
+        // lookup: loc,
+
         editComponent: (props) => (
           <select
             value={props.value}
@@ -173,7 +281,12 @@ const MainTable = () => {
         ),
         },
         { title: 'AMC/Warranty', field: 'devamcwar', emptyValue:() => <em>NA</em>,
-        lookup: {'AMC':'AMC',"Warranty":"Warranty"},
+        lookup: amcwar.reduce((acc,lo)=>{
+          // console.log(lo);
+          acc[lo] = lo;
+          console.log(acc);
+          return acc;
+        },{}),
         editComponent: (props) => (
           <select
             value={props.value}
@@ -234,7 +347,12 @@ const MainTable = () => {
         ),},
         { title: 'Vendor AMC Name', field: 'vdamcname', emptyValue:() => <em>NA</em>},
         { title: 'Device Insurance', field: 'deviceinsurance', emptyValue:() => <em>NA</em>,
-        lookup: {'Yes':'Yes',"No":"No"},
+        lookup: insurance.reduce((acc,lo)=>{
+          // console.log(lo);
+          acc[lo] = lo;
+          console.log(acc);
+          return acc;
+        },{}),
         editComponent: (props) => (
           <select
             value={props.value}
