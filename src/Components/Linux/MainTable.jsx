@@ -26,7 +26,7 @@ const MainTable = () => {
   
       const response = await axios.get(`/inventory/serverlist`);
   
-      // console.log(response.data);
+      console.log(response.data);
   
       setData(response.data);
     }
@@ -36,7 +36,13 @@ const MainTable = () => {
   }, [])
 
   const categories = ['NA','PROD', 'TEST'];
-  const osdetails = ['NA','SUSE', 'UBUNTU','REDHAT'];
+  const powers = ['NA','powerdOn','poweredOff'];
+  const supsta = ['NA','InSupport','OutOfSupport','Exception'];
+  const locationd = ['NA','PUNE','BLR'];
+  const osdetails = ['NA','SUSE12SP5','SUSE15SP4', 'SUSE15SP2','VMwarePhotonOS-OtherLinux','RHEL7.2','SUSE12SP1','RHEL6.1','Centos7.0','RHEL6.5','SUSE11SP1','SUSE11SP4','SUSE11SP3','Centos9.0','Ubuntu22.04','RHEL5','OtherLinux','Ubuntu16.04.6','Ubuntu18.04.6','CentOSStream9','Centos8.0','SUSE12SP4','Centos9','Legacy','OracleLinux8.5','Centos7.6','Centos8','Ubuntu20.04','SUSE15sp5','Centos7.5','Centos7.9','CustomLinux','RHEL5.2','SUSE12SP3'];
+
+  
+  const projectn = ['NA','GST','BECKEN','OSSG','TIN','CBFC','CRA','TELEMEDICINE','IPAN','DOT','EDASTKHAT','SecurityInfo','E-SIGN','VL','VS']
 // eslint-disable-next-line
     const [columns, setColumns] = useState([
         {
@@ -47,11 +53,37 @@ const MainTable = () => {
           
         { title: 'Server Name', field: 'server_NAME', emptyValue:() => <em>NA</em> },
         { title: 'Physical IP', field: 'physical_IP', emptyValue:() => <em>NA</em>},
-        { title: 'Project Name', field: 'project_NAME', emptyValue:() => <em>NA</em>},
+        { title: 'Pune_NAT_IP', field: 'pune_NAT_IP', emptyValue:() => <em>NA</em>},
+        { title: 'Blr_NAT_IP', field: 'blr_NAT_IP', emptyValue:() => <em>NA</em>},
+        { title: 'Project Name', field: 'project_NAME', emptyValue:() => <em>NA</em>,
+        lookup: projectn.reduce((acc,lo)=>{
+          // console.log(lo);
+          acc[lo] = lo;
+          console.log(acc);
+          return acc;
+        },{}),
+        editComponent: (props) => (
+          <select
+            value={props.value}
+            onChange={(e) => props.onChange(e.target.value)}
+            style={{padding:'3px',background:'white', outline:'none',border:'none',borderBottom:'1px solid'}}
+          >
+            {projectn.map((category) => (
+              <option key={category} value={category}>
+                {category}
+              </option>
+            ))}
+          </select>
+        ),},
         {
           title: 'Environment',
           field: 'environment',
-          lookup: {'PROD':'PROD','TEST':'TEST'},
+          lookup: categories.reduce((acc,lo)=>{
+            // console.log(lo);
+            acc[lo] = lo;
+            console.log(acc);
+            return acc;
+          },{}),
           editComponent: (props) => (
             <select
               value={props.value}
@@ -68,7 +100,13 @@ const MainTable = () => {
           
         },
         // { title: 'Environment', field: 'environment', emptyValue:() => <em>NA</em>, filtering:"multi-select"},
-        { title: 'OS', field: 'os', emptyValue:() => <em>NA</em>,lookup:{'SUSE':'SUSE','UBUNTU':'UBUNTU','REDHAT':'REDHAT'},
+        { title: 'OS', field: 'os', emptyValue:() => <em>NA</em>,
+        lookup: osdetails.reduce((acc,lo)=>{
+          // console.log(lo);
+          acc[lo] = lo;
+          console.log(acc);
+          return acc;
+        },{}),
         editComponent: (props) => (
           <select
             value={props.value}
@@ -83,10 +121,70 @@ const MainTable = () => {
           </select>
         ),
       },
-        { title: 'Location', field: 'location', emptyValue:() => <em>NA</em>},
-        { title: 'Power Status', field: 'power_STATUS', emptyValue:() => <em>NA</em>},
+        { title: 'Location', field: 'location', emptyValue:() => <em>NA</em>,
+        lookup: locationd.reduce((acc,lo)=>{
+          // console.log(lo);
+          acc[lo] = lo;
+          console.log(acc);
+          return acc;
+        },{}),
+        editComponent: (props) => (
+          <select
+            value={props.value}
+            onChange={(e) => props.onChange(e.target.value)}
+            style={{padding:'3px',background:'white', outline:'none',border:'none',borderBottom:'1px solid'}}
+          >
+            {locationd.map((category) => (
+              <option key={category} value={category}>
+                {category}
+              </option>
+            ))}
+          </select>
+        ),},
+        { title: 'Power Status', field: 'power_STATUS', emptyValue:() => <em>NA</em>,
+        lookup: powers.reduce((acc,lo)=>{
+          // console.log(lo);
+          acc[lo] = lo;
+          console.log(acc);
+          return acc;
+        },{}),
+        editComponent: (props) => (
+          <select
+            value={props.value}
+            onChange={(e) => props.onChange(e.target.value)}
+            style={{padding:'3px',background:'white', outline:'none',border:'none',borderBottom:'1px solid'}}
+          >
+            {powers.map((category) => (
+              <option key={category} value={category}>
+                {category}
+              </option>
+            ))}
+          </select>
+        ),},
+        { title: 'Support Status', field: 'support_STATUS', emptyValue:() => <em>NA</em>,
+        lookup: supsta.reduce((acc,lo)=>{
+          // console.log(lo);
+          acc[lo] = lo;
+          console.log(acc);
+          return acc;
+        },{}),
+        editComponent: (props) => (
+          <select
+            value={props.value}
+            onChange={(e) => props.onChange(e.target.value)}
+            style={{padding:'3px',background:'white', outline:'none',border:'none',borderBottom:'1px solid'}}
+          >
+            {supsta.map((category) => (
+              <option key={category} value={category}>
+                {category}
+              </option>
+            ))}
+          </select>
+        ),},
+        { title: 'Owner', field: 'owner', emptyValue:() => <em>NA</em>},
         // { title: 'Birth Year', field: 'birthYear', type: 'numeric' },
         // {
+          // support_STATUS
         //   title: 'Birth Place',
         //   field: 'birthCity',
         //   lookup: { 34: 'İstanbul', 63: 'Şanlıurfa' },
@@ -100,7 +198,7 @@ const MainTable = () => {
     
       return (
         <div className='container-fluid d-flex justify-content-center align-items-center'>
-            <div className='mt-1'>
+            <div className='mt-1' style={{width:"100%"}}>
         <MaterialTable
           title="Linux Inventory"
           columns={columns}
@@ -111,25 +209,25 @@ const MainTable = () => {
                   
                 setTimeout(() => {
                 //   setData([...data, newData]);
-                  if(newData.project_NAME !== undefined){
-                    newData.project_NAME = newData.project_NAME.toUpperCase();
-                }
+                //   if(newData.project_NAME !== undefined){
+                //     newData.project_NAME = newData.project_NAME.toUpperCase();
+                // }
 
-                if(newData.environment !== undefined){
-                    newData.environment = newData.environment.toUpperCase();
-                }
+                // if(newData.environment !== undefined){
+                //     newData.environment = newData.environment.toUpperCase();
+                // }
 
-                if(newData.os !== undefined){
-                    newData.os = newData.os.toUpperCase();
-                }
+                // if(newData.os !== undefined){
+                //     newData.os = newData.os.toUpperCase();
+                // }
 
-                if (newData.location !== undefined){
-                    newData.location = newData.location.toUpperCase();
-                }
+                // if (newData.location !== undefined){
+                //     newData.location = newData.location.toUpperCase();
+                // }
 
-                if (newData.power_STATUS!== undefined){
-                    newData.power_STATUS = newData.power_STATUS.toUpperCase();
-                }
+                // if (newData.power_STATUS!== undefined){
+                //     newData.power_STATUS = newData.power_STATUS.toUpperCase();
+                // }
 
                 //   if(newData.project_NAME !== undefined ||newData.environment !== undefined || newData.os !==undefined || newData.location !== undefined || newData.power_STATUS!==undefined){
                 //     newData.project_NAME = newData.project_NAME.toUpperCase();
@@ -156,25 +254,25 @@ const MainTable = () => {
 
                     console.log(newData.project_NAME == null);
                     
-                    if(newData.project_NAME !== null){
-                        newData.project_NAME = newData.project_NAME.toUpperCase();
-                    }
+                    // if(newData.project_NAME !== null){
+                    //     newData.project_NAME = newData.project_NAME.toUpperCase();
+                    // }
 
-                    if(newData.environment !== null){
-                        newData.environment = newData.environment.toUpperCase();
-                    }
+                    // if(newData.environment !== null){
+                    //     newData.environment = newData.environment.toUpperCase();
+                    // }
 
-                    if(newData.os !== null){
-                        newData.os = newData.os.toUpperCase();
-                    }
+                    // if(newData.os !== null){
+                    //     newData.os = newData.os.toUpperCase();
+                    // }
 
-                    if (newData.location !== null){
-                        newData.location = newData.location.toUpperCase();
-                    }
+                    // if (newData.location !== null){
+                    //     newData.location = newData.location.toUpperCase();
+                    // }
 
-                    if (newData.power_STATUS!== null){
-                        newData.power_STATUS = newData.power_STATUS.toUpperCase();
-                    }
+                    // if (newData.power_STATUS!== null){
+                    //     newData.power_STATUS = newData.power_STATUS.toUpperCase();
+                    // }
 
                 //   if(newData.project_NAME !== null || newData.environment !== null || newData.os !== null || newData.location !== null || newData.power_STATUS!== null){
                 //     newData.project_NAME = newData.project_NAME.toUpperCase();
