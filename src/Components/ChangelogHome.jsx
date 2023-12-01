@@ -19,7 +19,7 @@ const ChangelogHome = () => {
         <div className='container'>
 
         <div className='row d-flex justify-content-center align-items-center'>
-          <div className='col-5 d-flex justify-content-center align-items-center'><Link to="linux" style={{textDecoration:'none',width:"95%",color:'black'}}><Card name={"Linux Changelog"}/></Link></div>
+          <div className='col-5 d-flex justify-content-center align-items-center'><Link to="linuxchangelog" style={{textDecoration:'none',width:"95%",color:'black'}}><Card name={"Linux Changelog"}/></Link></div>
           <div className='col-5 d-flex justify-content-center align-items-center'><Link to="hardware" style={{textDecoration:'none',width:"95%",color:'black'}}><Card name={"Hardware Changelog"}/></Link></div>
         </div>
         <div className='row d-flex justify-content-center align-items-center'>

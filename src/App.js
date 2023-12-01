@@ -3,13 +3,15 @@ import React, { useState } from 'react'
 
 import { BrowserRouter, Route, Routes } from 'react-router-dom';
 import Home from './Components/Home';
-import Changelog from './Components/Changelog/Changelog';
 import Powerof from './Components/Powerof/Powerof';
 import Decommision from './Components/Decommision/Decommision';
 import Linux from './Components/Linux/Linux';
+import LinuxChangeLog from './Components/LinuxChangeLog/LinuxChangeLog';
+
 import Hardware from './Components/Hardware/Hardware';
 import Login from './Components/Login/Login';
 import Signup from './Components/Signup/Signup';
+import ChangelogHome from './Components/ChangelogHome';
 
 function App() {
 
@@ -34,10 +36,12 @@ function App() {
     <Routes>
     <Route path="linux" element={<Linux setLogin={setLogin}/>}/>
     <Route path="hardware" element={<Hardware setLogin={setLogin}/>}/>
-     <Route path="changelog" element={<Changelog setLogin={setLogin}/>}/>
+     <Route path="changelog" element={<ChangelogHome setLogin={setLogin}/>}/>
      <Route path="powerof" element={<Powerof setLogin={setLogin}/>}/>
      <Route path="decommision" element={<Decommision setLogin={setLogin}/>}/>
      <Route path="newuser" element={<Signup setLogin={setLogin}/>}/>
+     <Route path="linuxchangelog" element={<LinuxChangeLog setLogin={setLogin}/>}/>
+
 
      <Route path="/" element={<Home setLogin={setLogin}/>}/>
     </Routes>

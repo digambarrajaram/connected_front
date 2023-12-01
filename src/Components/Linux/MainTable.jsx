@@ -9,17 +9,45 @@ const MainTable = () => {
 
     const [data,setData] = useState([]);
 
+    const findDifferences = (obj1, obj2) => {
+      let news = [];
+      return Object.keys(obj1).reduce((differences, key) => {
+        if (obj1[key] !== obj2[key]) {
+          news.push(`${key} ==> ${obj1[key]} to ${obj2[key]} \n`);
+          differences[key] = { OldData: obj1[key], NewData: obj2[key] };
+        }
+        // console.log(news);
+        // const differencesString = news.join('\n');
+        // console.log(differencesString);
+        return news;
+      }, {});
+    };
+
     // const [filter,setFilter] = useState(false);
     const addUpdateData = async (newData) =>{
+        const previousData = await axios.get(`/inventory/linuxbyid/${newData.sid}`);
+        console.log(previousData.data);
+
+        const differences = findDifferences(previousData.data, newData);
+        const finalString = differences.join('\n')
+        console.log(finalString);
+
+
+        const postchange = await axios.post("/inventory/inventorychangelog",{
+          "uniqueid":newData.sid,
+          "remark":finalString,
+          "user":"ritesh"
+        });
+        console.log(postchange);
         const serverdata = await axios.post("/inventory/addserver",newData);
         console.log(serverdata.data); 
-        window.location.reload(true) 
+        // window.location.reload(true) 
     }
 
     const deleteData = async (sid) => {
         const deleteserverdata = await axios.post(`/inventory/deleteserver/${sid}`);
         console.log(deleteserverdata.data);
-        window.location.reload(true) 
+        // window.location.reload(true) 
     }
 
     const getdata = async () => {
@@ -50,7 +78,7 @@ const MainTable = () => {
             render: (rowData) => rowData.tableData.id + 1,
             editable: 'never',
           },
-          
+          { title: 'UniqueId', field: 'sid', emptyValue:() => <em>NA</em> },
         { title: 'Server Name', field: 'server_NAME', emptyValue:() => <em>NA</em> },
         { title: 'Physical IP', field: 'physical_IP', emptyValue:() => <em>NA</em>},
         { title: 'Pune_NAT_IP', field: 'pune_NAT_IP', emptyValue:() => <em>NA</em>},
@@ -59,7 +87,7 @@ const MainTable = () => {
         lookup: projectn.reduce((acc,lo)=>{
           // console.log(lo);
           acc[lo] = lo;
-          console.log(acc);
+          // console.log(acc);
           return acc;
         },{}),
         editComponent: (props) => (
@@ -81,7 +109,7 @@ const MainTable = () => {
           lookup: categories.reduce((acc,lo)=>{
             // console.log(lo);
             acc[lo] = lo;
-            console.log(acc);
+            // console.log(acc);
             return acc;
           },{}),
           editComponent: (props) => (
@@ -104,7 +132,7 @@ const MainTable = () => {
         lookup: osdetails.reduce((acc,lo)=>{
           // console.log(lo);
           acc[lo] = lo;
-          console.log(acc);
+          // console.log(acc);
           return acc;
         },{}),
         editComponent: (props) => (
@@ -125,7 +153,7 @@ const MainTable = () => {
         lookup: locationd.reduce((acc,lo)=>{
           // console.log(lo);
           acc[lo] = lo;
-          console.log(acc);
+          // console.log(acc);
           return acc;
         },{}),
         editComponent: (props) => (
@@ -145,7 +173,7 @@ const MainTable = () => {
         lookup: powers.reduce((acc,lo)=>{
           // console.log(lo);
           acc[lo] = lo;
-          console.log(acc);
+          // console.log(acc);
           return acc;
         },{}),
         editComponent: (props) => (
@@ -165,7 +193,7 @@ const MainTable = () => {
         lookup: supsta.reduce((acc,lo)=>{
           // console.log(lo);
           acc[lo] = lo;
-          console.log(acc);
+          // console.log(acc);
           return acc;
         },{}),
         editComponent: (props) => (
