@@ -26,7 +26,7 @@ import "./Header.css";
 import { Link, useNavigate } from "react-router-dom";
 
 
-const Header = ({setLogin,path,path2}) => {
+const Header = ({setLogin,path,path2,path3}) => {
 
     const navigate = useNavigate();
     //create initial menuCollapse state using useState hook
@@ -69,6 +69,7 @@ const Header = ({setLogin,path,path2}) => {
           <SidebarContent>
             <Menu iconShape="square">
               <MenuItem data={{route:"/"}} className="act" icon={<FiHome />}> <Link className="act" style={{color:'black'}} to="/">Home</Link></MenuItem>
+              {/* {path3 === undefined ? <MenuItem data={{route:"/"}} className="act" icon={<FiHome />}> <Link className="act" style={{color:'black'}} to="/">Home</Link></MenuItem>:<MenuItem data={{route:`/${path3}`}} className="act" icon={<FiHome />}><Link className="act" style={{color:'black'}} to={`/${path3}`}>Home</Link></MenuItem>} */}
               {path === undefined ? <MenuItem data={{route:"/changelog"}} className="act" icon={<FaList />}><Link className="act" style={{color:'black'}} to="/changelog">Change Log</Link></MenuItem>:<MenuItem data={{route:`/changelog/${path}`}} className="act" icon={<FaList />}><Link className="act" style={{color:'black'}} to={`/changelog/${path}`}>Change Log</Link></MenuItem>}
               {path2 === undefined ? <MenuItem data={{route:"/powerof"}} className="act" icon={<FaPowerOff />}><Link className="act" style={{color:'black'}} to="/powerof">Powerd OFF VMs</Link></MenuItem>:<MenuItem data={{route:`/powerof/${path2}`}} className="act" icon={<FaPowerOff />}><Link className="act" style={{color:'black'}} to={`/powerof/${path2}`}>Powerd OFF VMs</Link></MenuItem>}
               
