@@ -2,7 +2,7 @@ import React from 'react'
 import MainTable from './MainTable'
 import Header from '../Header/Header'
 
-const Hardware = ({setLogin}) => {
+const HardwarePowerOff = ({setLogin}) => {
   
   return (
     <div className="App" style={{height:'100vh'}}>
@@ -22,4 +22,4 @@ const Hardware = ({setLogin}) => {
   )
 }
 
-export default Hardware
+export default HardwarePowerOff

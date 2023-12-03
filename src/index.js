@@ -3,10 +3,22 @@ import ReactDOM from 'react-dom';
 import './index.css';
 import App from './App';
 import reportWebVitals from './reportWebVitals';
+// Before
+// import { ToastContainer } from './node_modules/react-toastify/dist/react-toastify.esm.mjs';
+// import { ToastContainer} from 'react-toastify';
+// import 'react-toastify/dist/ReactToastify.css';
+
+// After
+// import Toastify from './node_modules/react-toastify/dist/react-toastify.esm.mjs';
+
+// Now you can use it like this
+
+
 
 ReactDOM.render(
   <React.StrictMode>
     <App />
+   {/* <ToastContainer/> */}
   </React.StrictMode>,
   document.getElementById('root')
 );

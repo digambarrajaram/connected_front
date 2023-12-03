@@ -26,7 +26,7 @@ import "./Header.css";
 import { Link, useNavigate } from "react-router-dom";
 
 
-const Header = ({setLogin}) => {
+const Header = ({setLogin,path,path2}) => {
 
     const navigate = useNavigate();
     //create initial menuCollapse state using useState hook
@@ -69,8 +69,9 @@ const Header = ({setLogin}) => {
           <SidebarContent>
             <Menu iconShape="square">
               <MenuItem data={{route:"/"}} className="act" icon={<FiHome />}> <Link className="act" style={{color:'black'}} to="/">Home</Link></MenuItem>
-              <MenuItem data={{route:"/changelog"}} className="act" icon={<FaList />}><Link className="act" style={{color:'black'}} to="/changelog">Change Log</Link></MenuItem>
-              <MenuItem data={{route:"/powerof"}} className="act" icon={<FaPowerOff />}><Link className="act" style={{color:'black'}} to="/powerof">Powerd OFF VMs</Link></MenuItem>
+              {path === undefined ? <MenuItem data={{route:"/changelog"}} className="act" icon={<FaList />}><Link className="act" style={{color:'black'}} to="/changelog">Change Log</Link></MenuItem>:<MenuItem data={{route:`/changelog/${path}`}} className="act" icon={<FaList />}><Link className="act" style={{color:'black'}} to={`/changelog/${path}`}>Change Log</Link></MenuItem>}
+              {path2 === undefined ? <MenuItem data={{route:"/powerof"}} className="act" icon={<FaPowerOff />}><Link className="act" style={{color:'black'}} to="/powerof">Powerd OFF VMs</Link></MenuItem>:<MenuItem data={{route:`/powerof/${path2}`}} className="act" icon={<FaPowerOff />}><Link className="act" style={{color:'black'}} to={`/powerof/${path2}`}>Powerd OFF VMs</Link></MenuItem>}
+              
               <MenuItem data={{route:"/decommision"}} className="act" icon={<GiGreenPower />}><Link className="act" style={{color:'black'}} to="/decommision">Decommision</Link></MenuItem>
               <MenuItem data={{route:"/newuser"}} className="act" icon={<FaUserPlus />}><Link className="act" style={{color:'black'}} to="/newuser">New User</Link></MenuItem>
 

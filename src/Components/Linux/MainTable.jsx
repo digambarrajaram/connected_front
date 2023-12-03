@@ -1,13 +1,14 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState, useEffect, useCallback } from 'react';
 import axios from 'axios';
 import MaterialTable from 'material-table'
 // import { MdOutlineHideSource } from "react-icons/md";
 import "./MainTable.css";
 
 
-const MainTable = () => {
+const MainTable = React.memo(() => {
 
     const [data,setData] = useState([]);
+    // const [rerender, toggleRerender] = useReducer((state) => !state, false);
 
     const findDifferences = (obj1, obj2) => {
       let news = [];
@@ -24,7 +25,11 @@ const MainTable = () => {
     };
 
     // const [filter,setFilter] = useState(false);
-    const addUpdateData = async (newData) =>{
+    const addUpdateData = useCallback( async (newData) =>{
+      console.log(newData.sid);
+
+      if(newData.sid !== undefined){
+
         const previousData = await axios.get(`/inventory/linuxbyid/${newData.sid}`);
         console.log(previousData.data);
 
@@ -36,23 +41,53 @@ const MainTable = () => {
         const postchange = await axios.post("/inventory/inventorychangelog",{
           "uniqueid":newData.sid,
           "remark":finalString,
-          "user":"ritesh"
+          "user":localStorage.getItem("username")
         });
         console.log(postchange);
         const serverdata = await axios.post("/inventory/addserver",newData);
         console.log(serverdata.data); 
-        // window.location.reload(true) 
-    }
+        window.location.reload(true) 
+        // toggleRerender();
+
+      }else{
+
+        const serverdata = await axios.post("/inventory/addserver",newData);
+        console.log(serverdata.data); 
+
+        const lid = await axios.get(`inventory/getsid`);
+        console.log(lid.data);
+
+        const postchange = await axios.post("/inventory/inventorychangelog",{
+          "uniqueid":lid.data,
+          "remark":`New Server Added ==> ${newData.server_NAME} IP ==> ${newData.physical_IP}`,
+          "user":localStorage.getItem("username")
+        });
+        console.log(postchange);
+        
+
+        
+        alert("new Added")
+        window.location.reload(true)
+      }
+        
+    })
 
     const deleteData = async (sid) => {
+
+      const postchange = await axios.post("/inventory/inventorychangelog",{
+        "uniqueid":sid,
+        "remark":`Server Deleted`,
+        "user":localStorage.getItem("username")
+      });
+
         const deleteserverdata = await axios.post(`/inventory/deleteserver/${sid}`);
         console.log(deleteserverdata.data);
-        // window.location.reload(true) 
+        window.location.reload(true) 
     }
 
     const getdata = async () => {
   
-      const response = await axios.get(`/inventory/serverlist`);
+      const response = await axios.get(`/inventory/serverlist/${false}`);
   
       console.log(response.data);
   
@@ -78,7 +113,7 @@ const MainTable = () => {
             render: (rowData) => rowData.tableData.id + 1,
             editable: 'never',
           },
-          { title: 'UniqueId', field: 'sid', emptyValue:() => <em>NA</em> },
+          { title: 'UniqueId', field: 'sid', emptyValue:() => <em>NA</em>,editable:'never' },
         { title: 'Server Name', field: 'server_NAME', emptyValue:() => <em>NA</em> },
         { title: 'Physical IP', field: 'physical_IP', emptyValue:() => <em>NA</em>},
         { title: 'Pune_NAT_IP', field: 'pune_NAT_IP', emptyValue:() => <em>NA</em>},
@@ -335,5 +370,5 @@ const MainTable = () => {
         </div>
       )
 }
-
+)
 export default MainTable

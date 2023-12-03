@@ -6,7 +6,7 @@ import { Link } from 'react-router-dom'
 
 
 
-const ChangelogHome = () => {
+const PowerOffHome = () => {
   return (
     <div className="App" style={{height:'100vh'}}>
 
@@ -15,12 +15,12 @@ const ChangelogHome = () => {
       <Header />
       </div>
       <div className='col-10 d-flex justify-content-between align-items-center flex-column'>
-          <div style={{marginTop:"5%"}}><h1>ChangeLogs</h1></div>
+          <div style={{marginTop:"5%"}}><h1>PowerOff</h1></div>
         <div className='container'>
 
         <div className='row d-flex justify-content-center align-items-center'>
-          <div className='col-5 d-flex justify-content-center align-items-center'><Link to="linuxchangelog" style={{textDecoration:'none',width:"95%",color:'black'}}><Card name={"Linux Changelog"}/></Link></div>
-          <div className='col-5 d-flex justify-content-center align-items-center'><Link to="hardwarechangelog" style={{textDecoration:'none',width:"95%",color:'black'}}><Card name={"Hardware Changelog"}/></Link></div>
+          <div className='col-5 d-flex justify-content-center align-items-center'><Link to="linuxpoweroff" style={{textDecoration:'none',width:"95%",color:'black'}}><Card name={"Linux Power List"}/></Link></div>
+          <div className='col-5 d-flex justify-content-center align-items-center'><Link to="hardwarepoweroff" style={{textDecoration:'none',width:"95%",color:'black'}}><Card name={"Hardware Power List"}/></Link></div>
         </div>
         <div className='row d-flex justify-content-center align-items-center'>
           <div className='col-5 d-flex justify-content-center align-items-center'><Link to="linux" style={{textDecoration:'none',width:"95%",color:'black'}}><Card name={"New"}/></Link></div>
@@ -34,4 +34,4 @@ const ChangelogHome = () => {
   )
 }
 
-export default ChangelogHome
+export default PowerOffHome

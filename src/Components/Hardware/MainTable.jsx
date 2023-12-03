@@ -10,6 +10,20 @@ const MainTable = () => {
     const [data,setData] = useState([]);
     const [loc,setLoc] = useState([]);
 
+    const findDifferences = (obj1, obj2) => {
+      let news = [];
+      return Object.keys(obj1).reduce((differences, key) => {
+        if (obj1[key] !== obj2[key]) {
+          news.push(`${key} ==> ${obj1[key]} to ${obj2[key]} \n`);
+          differences[key] = { OldData: obj1[key], NewData: obj2[key] };
+        }
+        // console.log(news);
+        // const differencesString = news.join('\n');
+        // console.log(differencesString);
+        return news;
+      }, {});
+    };
+
     // var testing;
 
     
@@ -18,6 +32,22 @@ const MainTable = () => {
 
     // const [filter,setFilter] = useState(false);
     const addUpdateData = async (newData) =>{
+
+      if(newData.hid !== undefined){
+
+        const previousData = await axios.get(`/inventory/hardwarebyid/${newData.hid}`);
+        console.log(previousData.data);
+
+        const differences = findDifferences(previousData.data, newData);
+        const finalString = differences.join('\n')
+        console.log(finalString);
+
+        const postchange = await axios.post("/inventory/hardwarechangelog",{
+          "uniqueid":newData.hid,
+          "remark":finalString,
+          "user":localStorage.getItem("username")
+        });
+
         newData.podate = formatDate(newData.podate);
         newData.approvaldate = formatDate(newData.approvaldate);
         newData.warstdate = formatDate(newData.warstdate);
@@ -33,10 +63,49 @@ const MainTable = () => {
         console.log(newData);
         console.log(serverdata.data);
         window.location.reload(true)
+
+      }else{
+
+        newData.podate = formatDate(newData.podate);
+        newData.approvaldate = formatDate(newData.approvaldate);
+        newData.warstdate = formatDate(newData.warstdate);
+        newData.wareddate = formatDate(newData.wareddate);
+        newData.amcstdate = formatDate(newData.amcstdate);
+        newData.amceddate = formatDate(newData.amceddate);
+        newData.expdate = formatDate(newData.expdate);
+        newData.principaleosupport = formatDate(newData.principaleosupport);
+        newData.principaleoservice = formatDate(newData.principaleoservice);
+        newData.totalcores = newData.corepercpu * newData.socket;
+        
+        const serverdata = await axios.post("/inventory/addhardware",newData);
+        console.log(newData);
+        console.log(serverdata.data);
+
+        const lid = await axios.get(`inventory/gethid`);
+        console.log(lid.data);
+
+        const postchange = await axios.post("/inventory/hardwarechangelog",{
+          "uniqueid":lid.data,
+          "remark":`New Server Added Asset No ==> ${newData.assetno}`,
+          "user":localStorage.getItem("username")
+        });
+        console.log(postchange);
+        window.location.reload(true)
+
+      }
+
+        
     }
 
     // console.log(count);
     const deleteData = async (sid) => {
+
+      const postchange = await axios.post("/inventory/hardwarechangelog",{
+        "uniqueid":sid,
+        "remark":`Server Deleted`,
+        "user":localStorage.getItem("username")
+      });
+
         const deleteserverdata = await axios.post(`/inventory/deletehardware/${sid}`);
         console.log(deleteserverdata.data);
         window.location.reload(true) 
@@ -58,10 +127,10 @@ const MainTable = () => {
 
     const getdata = async () => {
   
-      const response = await axios.get(`/inventory/hardwarelist`);
+      const response = await axios.get(`/inventory/hardwarelist/${false}`);
       
   
-      console.log(response.data[0].location);
+      // console.log(response.data[0].location);
   
       setData(response.data);
       // getListData();
@@ -131,7 +200,7 @@ const MainTable = () => {
             render: (rowData) => rowData.tableData.id + 1,
             // editable: 'never',
           },
-          
+          { title: 'UniqueId', field: 'hid', emptyValue:() => <em>NA</em>,editable:'never' },
         { title: 'Asset No.', field: 'assetno', emptyValue:() => <em>NA</em> },
         { title: 'Device Serial No.', field: 'deviceserialno', emptyValue:() => <em>NA</em>},
         { title: 'ILO/Physical Ip', field: 'ilophysicalip', emptyValue:() => <em>NA</em>},
@@ -139,7 +208,7 @@ const MainTable = () => {
           lookup: categories.reduce((acc,lo)=>{
             // console.log(lo);
             acc[lo] = lo;
-            console.log(acc);
+            // console.log(acc);
             return acc;
           },{}),
           editComponent: (props) => (
@@ -159,7 +228,7 @@ const MainTable = () => {
         lookup: modelno.reduce((acc,lo)=>{
           // console.log(lo);
           acc[lo] = lo;
-          console.log(acc);
+          // console.log(acc);
           return acc;
         },{}),
         editComponent: (props) => (
@@ -181,7 +250,7 @@ const MainTable = () => {
         lookup: projectl.reduce((acc,lo)=>{
           // console.log(lo);
           acc[lo] = lo;
-          console.log(acc);
+          // console.log(acc);
           return acc;
         },{}),
         editComponent: (props) => (
@@ -202,7 +271,7 @@ const MainTable = () => {
         lookup:location.reduce((acc,lo)=>{
           // console.log(lo);
           acc[lo] = lo;
-          console.log(acc);
+          // console.log(acc);
           return acc;
         },{}),
         // lookup:loc.reduce((acc,lo)=>{
@@ -284,7 +353,7 @@ const MainTable = () => {
         lookup: amcwar.reduce((acc,lo)=>{
           // console.log(lo);
           acc[lo] = lo;
-          console.log(acc);
+          // console.log(acc);
           return acc;
         },{}),
         editComponent: (props) => (
@@ -350,7 +419,7 @@ const MainTable = () => {
         lookup: insurance.reduce((acc,lo)=>{
           // console.log(lo);
           acc[lo] = lo;
-          console.log(acc);
+          // console.log(acc);
           return acc;
         },{}),
         editComponent: (props) => (

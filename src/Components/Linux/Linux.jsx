@@ -8,7 +8,7 @@ const Linux = ({setLogin}) => {
 
     <div className='row' style={{height:'100vh'}}>
       <div className='col-2'>
-      <Header setLogin={setLogin}/>
+      <Header setLogin={setLogin} path="linuxchangelog" path2="linuxpoweroff"/>
       </div>
       <div className='col-10 d-flex justify-content-between align-items-center flex-column'>
         <div className='container'>
