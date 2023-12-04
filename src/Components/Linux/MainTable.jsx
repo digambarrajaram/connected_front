@@ -66,7 +66,7 @@ const MainTable = React.memo(() => {
         
 
         
-        alert("new Added")
+        // alert("new Added")
         window.location.reload(true)
       }
         
