@@ -35,6 +35,7 @@ const Login = ({setLogin}) => {
             if(Decrypt(userd.data.password) === log.password){
                 localStorage.setItem("username", userd.data.username);
                 localStorage.setItem("password", userd.data.password);
+                localStorage.setItem("unused","   ");
                 setLogin(true);
             }else{
                 setLogin(false);

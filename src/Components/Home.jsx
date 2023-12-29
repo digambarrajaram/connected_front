@@ -10,7 +10,7 @@ const Home = () => {
   return (
     <div className="App" style={{height:'100vh'}}>
 
-    <div className='row' style={{height:'100vh'}}>
+    <div className='row' style={{height:'100vh',width:'100%'}}>
       <div className='col-2'>
       <Header />
       </div>

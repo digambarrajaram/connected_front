@@ -23,9 +23,10 @@ function App() {
 
   const us = localStorage.getItem("username");
   const ps = localStorage.getItem("password");
+  const unused = localStorage.getItem("unused");
 
-  console.log(us);
-  console.log(ps);
+  // console.log(us);
+  // console.log(ps);
 
   // if(us !== null && ps !== null){
   //   setLogin(true);
@@ -34,7 +35,7 @@ function App() {
   return (
 
 
-   (ps !== null && us !== null) ?
+   (us !== null && ps !== null && unused === "   ") ?
     
     <BrowserRouter>
     <Routes>
