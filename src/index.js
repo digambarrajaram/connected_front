@@ -3,6 +3,8 @@ import ReactDOM from 'react-dom';
 import './index.css';
 import App from './App';
 import reportWebVitals from './reportWebVitals';
+import 'bootstrap/dist/css/bootstrap.css';
+import 'bootstrap/dist/js/bootstrap.js'
 // Before
 // import { ToastContainer } from './node_modules/react-toastify/dist/react-toastify.esm.mjs';
 // import { ToastContainer} from 'react-toastify';
