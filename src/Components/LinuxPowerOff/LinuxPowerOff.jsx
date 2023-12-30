@@ -11,7 +11,7 @@ const LinuxPowerOff = ({setLogin}) => {
       <Header setLogin={setLogin} path="linuxchangelog" path2="linuxpoweroff" path3="linux"/>
       </div>
       <div className='col-10 d-flex justify-content-between align-items-center flex-column'>
-        <div className=''>
+        <div className='container-fluid'>
             <MainTable/>
       </div>
       <div style={{marginTop:"1%"}}> <p style={{color:"grey"}}> © Copyright Protean eGov Technologies Limited. All Rights Reserved</p></div>

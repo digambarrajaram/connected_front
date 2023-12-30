@@ -3,9 +3,28 @@ import axios from 'axios';
 import MaterialTable from 'material-table'
 // import { MdOutlineHideSource } from "react-icons/md";
 import "./MainTable.css";
+import * as Icons from '@material-ui/icons'
+import FilterAltIcon from '@material-ui/icons/FilterList';
+import GetApp from '@material-ui/icons/GetApp';
+import NavigateNextIcon from '@material-ui/icons/NavigateNext';
+import ChevronLeftIcon from '@material-ui/icons/ChevronLeft';
 
 
 const MainTable = React.memo(() => {
+
+  const iconsMapping = Object.entries(Icons).reduce((acc, [name, icon]) => {
+    acc[name] = () => React.createElement(icon);
+    return acc;
+  }, {});
+
+  const tableIcons = {
+    ...iconsMapping,
+    Filter: () => <FilterAltIcon/>, // You can customize export icon as well
+    Export: () => <GetApp/>, // You can customize export icon as well
+    NextPage: () => <NavigateNextIcon/>,
+    PreviousPage: () => <ChevronLeftIcon/>
+  };
+
 
     const [data,setData] = useState([]);
     // const [rerender, toggleRerender] = useReducer((state) => !state, false);
@@ -265,6 +284,7 @@ const MainTable = React.memo(() => {
         <MaterialTable
           title="Linux Inventory"
           columns={columns}
+          icons={tableIcons}
           data={data}
           editable={{
             onRowAdd: newData =>
