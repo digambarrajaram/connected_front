@@ -24,6 +24,7 @@ function App() {
   const us = localStorage.getItem("username");
   const ps = localStorage.getItem("password");
   const unused = localStorage.getItem("unused");
+  const isadmin = localStorage.getItem("temp");
 
   // console.log(us);
   // console.log(ps);
@@ -44,7 +45,7 @@ function App() {
      <Route path="changelog" element={<ChangelogHome setLogin={setLogin}/>}/>
      <Route path="powerof" element={<PowerOffHome setLogin={setLogin}/>}/>
      <Route path="decommision" element={<Decommision setLogin={setLogin}/>}/>
-     <Route path="newuser" element={<Signup setLogin={setLogin}/>}/>
+     {isadmin == "1234" ? <Route path="newuser" element={<Signup setLogin={setLogin}/>}/> : ""}
      <Route path="changelog/linuxchangelog" element={<LinuxChangeLog setLogin={setLogin}/>}/>
      <Route path="changelog/hardwarechangelog" element={<HardwareChangeLog setLogin={setLogin}/>}/>
      <Route path="powerof/linuxpoweroff" element={<LinuxPowerOff setLogin={setLogin}/>}/>

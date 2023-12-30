@@ -1,6 +1,6 @@
 
 //import useState hook to create menu collapse state
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 //import react pro sidebar components
 // import ossglogo from "../../Assets/OSSG.gif";
 import proteanlogo from "../../Assets/protean.jpg"
@@ -28,6 +28,7 @@ import { Link, useNavigate } from "react-router-dom";
 
 const Header = ({setLogin,path,path2,path3}) => {
 
+  const [isadmin, setisadmin] = useState()
     const navigate = useNavigate();
     //create initial menuCollapse state using useState hook
     // eslint-disable-next-line
@@ -45,6 +46,16 @@ const Header = ({setLogin,path,path2,path3}) => {
     //condition checking to change state from true to false and vice versa
     // menuCollapse ? setMenuCollapse(false) : setMenuCollapse(true);
   };
+
+  useEffect(() => {
+    // isadmin = localStorage.getItem("temp");
+    // console.log(isadmin);
+
+    setisadmin(()=>{
+      return localStorage.getItem("temp")
+    })
+  }, [])
+  
 
   return (
     <>
@@ -74,8 +85,8 @@ const Header = ({setLogin,path,path2,path3}) => {
               {path2 === undefined ? <MenuItem data={{route:"/powerof"}} className="act" icon={<FaPowerOff />}><Link className="act" style={{color:'black'}} to="/powerof">Powerd OFF VMs</Link></MenuItem>:<MenuItem data={{route:`/powerof/${path2}`}} className="act" icon={<FaPowerOff />}><Link className="act" style={{color:'black'}} to={`/powerof/${path2}`}>Powerd OFF VMs</Link></MenuItem>}
               
               <MenuItem data={{route:"/decommision"}} className="act" icon={<GiGreenPower />}><Link className="act" style={{color:'black'}} to="/decommision">Decommision</Link></MenuItem>
-              <MenuItem data={{route:"/newuser"}} className="act" icon={<FaUserPlus />}><Link className="act" style={{color:'black'}} to="/newuser">New User</Link></MenuItem>
-
+              { isadmin === "1234" ? <MenuItem data={{route:"/newuser"}} className="act" icon={<FaUserPlus />}><Link className="act" style={{color:'black'}} to="/newuser">New User</Link></MenuItem>:<MenuItem data={{route:"/"}} disabled><Link to="/"></Link></MenuItem>}
+              {/* {isadmin === "1234" ? console.log("yes"):console.log("no")} */}
             </Menu>
           </SidebarContent>
           <SidebarFooter>

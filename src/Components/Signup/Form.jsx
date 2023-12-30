@@ -7,7 +7,7 @@ const Form = () => {
 
     const navigate = useNavigate();
     const [log, setLog] = useState({
-        username: "", password: ""
+        username: "", password: "", isadmin:"no"
     });
 
     const handelInp = (e) => {
@@ -47,15 +47,17 @@ const Form = () => {
 
             if(ispresent.data.username === undefined){
                 log.password = Encrypt(log.password);
+                log.isadmin == 'no' ? log.isadmin = false : log.isadmin = true
                 const useradd = await axios.post('/inventory/signup',log);
                 console.log(useradd.data);
+                console.log(log);
                 alert("User created Successfully");
                 // window.location.reload(true) 
                 navigate("/")
             }else{
                 alert("User Already Present");
                 setLog({
-                    username: "", password: ""
+                    username: "", password: "", isadmin:"no"
                 });
             }
             
@@ -86,6 +88,13 @@ const Form = () => {
                     <div class="mb-3" style={{textAlign:"left"}}>
                         <label class="form-label">Password</label>
                         <input type="password" class="form-control" name="password" value={log.password} onChange={handelInp} id="exampleInputPassword1" />
+                    </div>
+                    <div class="mb-3" style={{textAlign:"left"}}>
+                        <label  class="form-label">Is Admin</label>
+                        <select class="form-control" id="exampleFormControlSelect1" name="isadmin" value={log.isadmin} onChange={handelInp}>
+                        <option value="yes">Yes</option>
+                        <option value="no">No</option>
+                        </select>
                     </div>
                     <button type="submit" class="btn btn-primary" onClick={postData}>Create</button>
                 </form>
