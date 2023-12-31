@@ -48,6 +48,7 @@ const MainTable = () => {
             editable: 'never',
           },
           { title: 'UniqueId', field: 'uniqueid', emptyValue:() => <em>NA</em> },
+          { title: 'Physical Ip', field: 'ip', emptyValue:() => <em>NA</em> },
         { title: 'Remarks', field: 'remark', emptyValue:() => <em>NA</em> },
         { title: 'User', field: 'user', emptyValue:() => <em>NA</em>},
         { title: 'Change Time', field: 'mtime', emptyValue:() => <em>NA</em>},

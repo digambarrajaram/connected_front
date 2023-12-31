@@ -59,6 +59,7 @@ const MainTable = React.memo(() => {
 
         const postchange = await axios.post("/inventory/inventorychangelog",{
           "uniqueid":newData.sid,
+          "ip":newData.physical_IP,
           "remark":finalString,
           "user":localStorage.getItem("username")
         });
@@ -78,6 +79,7 @@ const MainTable = React.memo(() => {
 
         const postchange = await axios.post("/inventory/inventorychangelog",{
           "uniqueid":lid.data,
+          "ip":newData.physical_IP,
           "remark":`New Server Added ==> ${newData.server_NAME} IP ==> ${newData.physical_IP}`,
           "user":localStorage.getItem("username")
         });
@@ -92,9 +94,12 @@ const MainTable = React.memo(() => {
     })
 
     const deleteData = async (sid) => {
+      const previousData = await axios.get(`/inventory/linuxbyid/${sid}`);
+        console.log(previousData.data);
 
       const postchange = await axios.post("/inventory/inventorychangelog",{
         "uniqueid":sid,
+        "ip":previousData.data.physical_IP,
         "remark":`Server Deleted`,
         "user":localStorage.getItem("username")
       });
