@@ -23,7 +23,7 @@ const Home = () => {
           <div className='col-5 d-flex justify-content-center align-items-center'><Link to="hardware" style={{textDecoration:'none',width:"95%",color:'black'}}><Card name={"Hardware Inventory"}/></Link></div>
         </div>
         <div className='row d-flex justify-content-center align-items-center'>
-          <div className='col-5 d-flex justify-content-center align-items-center'><Link to="linux" style={{textDecoration:'none',width:"95%",color:'black'}}><Card name={"Wintel Inventory"}/></Link></div>
+          <div className='col-5 d-flex justify-content-center align-items-center'><Link to="software" style={{textDecoration:'none',width:"95%",color:'black'}}><Card name={"Software Inventory"}/></Link></div>
           <div className='col-5 d-flex justify-content-center align-items-center'><Link to="linux" style={{textDecoration:'none',width:"95%",color:'black'}}><Card name={"AIX Inventory"}/></Link></div>
         </div>
       </div>

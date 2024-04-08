@@ -206,7 +206,9 @@ const MainTable = () => {
   const insurance = ['NA','YES',"NO"];
   const socketno = [1,2,3,4,5,6,7,8,9,10,11,12,13,14,15,16,17,18,19,20]
 
-
+const columnStyles = {
+  assetno: {width: '50px'}
+};
 
   // const osdetails = ['NA','SUSE', 'UBUNTU','REDHAT'];
 // eslint-disable-next-line
@@ -478,7 +480,11 @@ const MainTable = () => {
             <div className='mt-1' style={{width:"100%"}}>
         <MaterialTable
           title="Hardware Inventory"
-          columns={columns}
+          columns={columns.map((col)=>({
+            ...col,
+            cellstyle: columnStyles[col.field],
+            headerStyle: columnStyles[col.field],
+          }))}
           icons={tableIcons}
           data={data}
           editable={{

@@ -15,7 +15,7 @@ import {
 
 //import icons from react icons
 import { FaList, FaPowerOff } from "react-icons/fa";
-import { FiHome, FiLogOut} from "react-icons/fi";
+import { FiHome, FiLogOut, FiArrowRightCircle, FiArrowLeftCircle} from "react-icons/fi";
 import { GiGreenPower } from "react-icons/gi";
 import { FaUserPlus } from "react-icons/fa6";
 
@@ -32,7 +32,7 @@ const Header = ({setLogin,path,path2,path3}) => {
     const navigate = useNavigate();
     //create initial menuCollapse state using useState hook
     // eslint-disable-next-line
-    const [menuCollapse, setMenuCollapse] = useState(false)
+    const [menuCollapse, setMenuCollapse] = useState(true)
 
     const handellock = () =>{
       localStorage.clear();
@@ -44,7 +44,7 @@ const Header = ({setLogin,path,path2,path3}) => {
     //create a custom function that will change menucollapse state from false to true and true to false
   const menuIconClick = () => {
     //condition checking to change state from true to false and vice versa
-    // menuCollapse ? setMenuCollapse(false) : setMenuCollapse(true);
+    menuCollapse ? setMenuCollapse(false) : setMenuCollapse(true);
   };
 
   useEffect(() => {
@@ -70,11 +70,11 @@ const Header = ({setLogin,path,path2,path3}) => {
             </div>
             <div className="closemenu" onClick={menuIconClick}>
                 {/* changing menu collapse icon on click */}
-              {/* {menuCollapse ? (
+              {menuCollapse ? (
                 <FiArrowRightCircle/>
               ) : (
                 <FiArrowLeftCircle/>
-              )} */}
+              )}
             </div>
           </SidebarHeader>
           <SidebarContent>

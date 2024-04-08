@@ -15,6 +15,9 @@ import HardwareChangeLog from './Components/HardwareChangeLog/HardwareChangeLog'
 import PowerOffHome from './Components/PowerOffHome';
 import LinuxPowerOff from './Components/LinuxPowerOff/LinuxPowerOff';
 import HardwarePowerOff from './Components/HardwarePowerOff/HardwarePowerOff';
+import Software from './Components/Software/Software';
+import SoftwareChangeLog from './Components/SoftwareChangeLog/SoftwareChangeLog';
+import SoftwarePowerOff from './Components/SoftwarePowerOff/SoftwarePowerOff';
 
 
 function App() {
@@ -42,14 +45,17 @@ function App() {
     <Routes>
     <Route path="linux" element={<Linux setLogin={setLogin}/>}/>
     <Route path="hardware" element={<Hardware setLogin={setLogin}/>}/>
+    <Route path="software" element={<Software setLogin={setLogin}/>}/>
      <Route path="changelog" element={<ChangelogHome setLogin={setLogin}/>}/>
      <Route path="powerof" element={<PowerOffHome setLogin={setLogin}/>}/>
      <Route path="decommision" element={<Decommision setLogin={setLogin}/>}/>
      {isadmin == "1234" ? <Route path="newuser" element={<Signup setLogin={setLogin}/>}/> : ""}
      <Route path="changelog/linuxchangelog" element={<LinuxChangeLog setLogin={setLogin}/>}/>
      <Route path="changelog/hardwarechangelog" element={<HardwareChangeLog setLogin={setLogin}/>}/>
+     <Route path="changelog/softwarechangelog" element={<SoftwareChangeLog setLogin={setLogin}/>}/>
      <Route path="powerof/linuxpoweroff" element={<LinuxPowerOff setLogin={setLogin}/>}/>
      <Route path="powerof/hardwarepoweroff" element={<HardwarePowerOff setLogin={setLogin}/>}/>
+     <Route path="powerof/softwarepoweroff" element={<SoftwarePowerOff setLogin={setLogin}/>}/>
 
 
 

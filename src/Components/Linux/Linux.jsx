@@ -7,10 +7,10 @@ const Linux = ({setLogin}) => {
     <div className="App" style={{height:'100vh'}}>
 
     <div className='row' style={{height:'100vh',width:'100%'}}>
-      <div className='col-2'>
+      <div className='col'>
       <Header setLogin={setLogin} path="linuxchangelog" path2="linuxpoweroff" path3="linux"/>
       </div>
-      <div className='col-10 d-flex justify-content-between align-items-center flex-column'>
+      <div className='col-12 d-flex justify-content-between align-items-center flex-column' style={{width:'98vw'}}>
         <div className='container-fluid'>
             <MainTable/>
       </div>

@@ -393,7 +393,7 @@ const MainTable = React.memo(() => {
         <div className='container-fluid d-flex justify-content-center align-items-center'>
             <div className='mt-1' style={{width:"100%"}}>
         <MaterialTable
-          title="Linux Inventory"
+          title="Software Inventory"
           columns={columns}
           icons={tableIcons}
           data={data}
