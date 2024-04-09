@@ -64,7 +64,7 @@ const MainTable = React.memo(() => {
       ]);
     
       return (
-        <div className='container-fluid d-flex justify-content-center align-items-center'>
+        <div className='container-fluid d-flex justify-content-center align-items-center' style={{paddingRight:"0"}}>
             <div className='mt-1' style={{width:"100%"}}>
         <MaterialTable
           title="Linux Power Off"

@@ -390,7 +390,7 @@ const MainTable = React.memo(() => {
     //   ]);
     
       return (
-        <div className='container-fluid d-flex justify-content-center align-items-center'>
+        <div className='container-fluid d-flex justify-content-center align-items-center' style={{paddingRight:"0"}}>
             <div className='mt-1' style={{width:"100%"}}>
         <MaterialTable
           title="Linux Inventory"
@@ -494,6 +494,7 @@ const MainTable = React.memo(() => {
               }),
           }}
           style={{ maxHeight: '90vh', overflow: 'auto' }}
+          className="table-container"
         //   actions={[{icon:()=><MdOutlineHideSource/>, onClick:()=> {setFilter(!filter); console.log(filter);}, isFreeAction:true}]}
         options={{pagination:false,filtering:true,exportButton:true,grouping:true,columnsButton:true,exportAllData:true,maxBodyHeight: '70vh',addRowPosition:"first",headerStyle:{fontSize:'13px'},cellStyle:{fontSize:'13px'}}}
         />
