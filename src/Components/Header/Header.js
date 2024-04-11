@@ -56,6 +56,7 @@ const Header = ({setLogin,path,path2,path3}) => {
     })
   }, [])
   
+  const us = localStorage.getItem("username");
 
   return (
     <>
@@ -79,12 +80,14 @@ const Header = ({setLogin,path,path2,path3}) => {
           </SidebarHeader>
           <SidebarContent>
             <Menu iconShape="square">
+            {menuCollapse ? <MenuItem className="act"><Link className="act" style={{color:'black'}}></Link></MenuItem>: <MenuItem className="act"><Link className="act" style={{color:'black'}}>{`Welcome - ${us}`}</Link></MenuItem>}
               <MenuItem data={{route:"/"}} className="act" icon={<FiHome />}> <Link className="act" style={{color:'black'}} to="/">Home</Link></MenuItem>
               {/* {path3 === undefined ? <MenuItem data={{route:"/"}} className="act" icon={<FiHome />}> <Link className="act" style={{color:'black'}} to="/">Home</Link></MenuItem>:<MenuItem data={{route:`/${path3}`}} className="act" icon={<FiHome />}><Link className="act" style={{color:'black'}} to={`/${path3}`}>Home</Link></MenuItem>} */}
               {path === undefined ? <MenuItem data={{route:"/changelog"}} className="act" icon={<FaList />}><Link className="act" style={{color:'black'}} to="/changelog">Change Log</Link></MenuItem>:<MenuItem data={{route:`/changelog/${path}`}} className="act" icon={<FaList />}><Link className="act" style={{color:'black'}} to={`/changelog/${path}`}>Change Log</Link></MenuItem>}
               {path2 === undefined ? <MenuItem data={{route:"/powerof"}} className="act" icon={<FaPowerOff />}><Link className="act" style={{color:'black'}} to="/powerof">Powerd OFF VMs</Link></MenuItem>:<MenuItem data={{route:`/powerof/${path2}`}} className="act" icon={<FaPowerOff />}><Link className="act" style={{color:'black'}} to={`/powerof/${path2}`}>Powerd OFF VMs</Link></MenuItem>}
               
-              <MenuItem data={{route:"/decommision"}} className="act" icon={<GiGreenPower />}><Link className="act" style={{color:'black'}} to="/decommision">Decommision</Link></MenuItem>
+              
+              {/* <MenuItem data={{route:"/decommision"}} className="act" icon={<GiGreenPower />}><Link className="act" style={{color:'black'}} to="/decommision">Decommision</Link></MenuItem> */}
               { isadmin === "1234" ? <MenuItem data={{route:"/newuser"}} className="act" icon={<FaUserPlus />}><Link className="act" style={{color:'black'}} to="/newuser">New User</Link></MenuItem>:<MenuItem data={{route:"/"}} disabled><Link to="/"></Link></MenuItem>}
               {/* {isadmin === "1234" ? console.log("yes"):console.log("no")} */}
             </Menu>

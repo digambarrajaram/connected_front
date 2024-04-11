@@ -15,7 +15,7 @@ const Home = () => {
       <Header />
       </div>
       <div className='col-10 d-flex justify-content-between align-items-center flex-column'>
-          <div style={{marginTop:"5%"}}><h1>OSSG Deliverables</h1></div>
+          <div style={{marginTop:"5%"}}><h1>Infrastructure Delivery</h1></div>
         <div className='container'>
 
         <div className='row d-flex justify-content-center align-items-center'>

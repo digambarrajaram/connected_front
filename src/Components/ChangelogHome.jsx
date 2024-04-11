@@ -23,7 +23,7 @@ const ChangelogHome = () => {
           <div className='col-5 d-flex justify-content-center align-items-center'><Link to="hardwarechangelog" style={{textDecoration:'none',width:"95%",color:'black'}}><Card name={"Hardware Changelog"}/></Link></div>
         </div>
         <div className='row d-flex justify-content-center align-items-center'>
-          <div className='col-5 d-flex justify-content-center align-items-center'><Link to="linux" style={{textDecoration:'none',width:"95%",color:'black'}}><Card name={"New"}/></Link></div>
+          <div className='col-5 d-flex justify-content-center align-items-center'><Link to="softwarechangelog" style={{textDecoration:'none',width:"95%",color:'black'}}><Card name={"Software Changelog"}/></Link></div>
           <div className='col-5 d-flex justify-content-center align-items-center'><Link to="linux" style={{textDecoration:'none',width:"95%",color:'black'}}><Card name={"New"}/></Link></div>
         </div>
       </div>

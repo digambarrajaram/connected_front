@@ -28,46 +28,45 @@ const MainTable = () => {
 
     const getdata = async () => {
   
-      const response = await axios.get(`/inventory/linuxchangelogslist`);
+      const response = await axios.get(`/inventory/softwarechangelogslist`);
   
-      console.log(response.data);
-  
-      setData(response.data);
+      setData(response.data)
     }
+
     
-  useEffect(() => {
+    useEffect(() => {
+    
     getdata();
   }, [])
-
+  
 
 // eslint-disable-next-line
-    const [columns, setColumns] = useState([
-        {
-            title: 'No.',
-            render: (rowData) => rowData.tableData.id + 1,
-            editable: 'never',
-          },
-          { title: 'UniqueId', field: 'uniqueid', emptyValue:() => <em>NA</em> },
-          { title: 'Physical Ip', field: 'ip', emptyValue:() => <em>NA</em> },
-        { title: 'Remarks', field: 'remark', emptyValue:() => <em>NA</em> },
-        { title: 'User', field: 'user', emptyValue:() => <em>NA</em>},
-        { title: 'Change Time', field: 'mtime', emptyValue:() => <em>NA</em>},
-        
-      ]);
-        
-      return (
-        <div className='container-fluid d-flex justify-content-center align-items-center' style={{paddingRight:"0"}}>
-            <div className='mt-1' style={{width:"100%"}}>
-        <MaterialTable
-          title="Software Change Log"
-          columns={columns}
-          icons={tableIcons}
-          data={data}
-        options={{pagination:false,filtering:true,exportButton:true,grouping:true,columnsButton:true,exportAllData:true,maxBodyHeight: '70vh',addRowPosition:"first",headerStyle:{fontSize:'13px'},cellStyle:{fontSize:'13px'}}}
-        />
-        </div>
-        </div>
-      )
+const [columns, setColumns] = useState([
+  {
+      title: 'No.',
+      render: (rowData) => rowData.tableData.id + 1,
+      editable: 'never',
+    },
+    { title: 'UniqueId', field: 'uniqueid', emptyValue:() => <em>NA</em> },
+  { title: 'Remarks', field: 'remark', emptyValue:() => <em>NA</em> },
+  { title: 'User', field: 'user', emptyValue:() => <em>NA</em>},
+  { title: 'Change Time', field: 'mtime', emptyValue:() => <em>NA</em>},
+  
+]);
+  
+return (
+  <div className='container-fluid d-flex justify-content-center align-items-center' style={{paddingRight:"0"}}>
+      <div className='mt-1' style={{width:"100%"}}>
+  <MaterialTable
+    title="Software Change Log"
+    columns={columns}
+    icons={tableIcons}
+    data={data}
+  options={{pagination:false,filtering:true,exportButton:true,grouping:true,columnsButton:true,exportAllData:true,maxBodyHeight: '70vh',addRowPosition:"first",headerStyle:{fontSize:'13px'},cellStyle:{fontSize:'13px'}}}
+  />
+  </div>
+  </div>
+)
 }
 
 export default MainTable
