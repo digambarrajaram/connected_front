@@ -294,7 +294,7 @@ const columnStyles = {
             ))}
           </select>
         ),},
-        { title: 'Approval WFMS', field: 'app_wfms_no', emptyValue:() => <em>NA</em>},
+        { title: 'Approval WFMS No.', field: 'app_wfms_no', emptyValue:() => <em>NA</em>},
         { title: 'PO WFMS', field: 'po_wfms_no', emptyValue:() => <em>NA</em>},
         { title: 'Remark', field: 'remark', emptyValue:() => <em>NA</em>},
       ]);
