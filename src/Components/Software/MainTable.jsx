@@ -171,9 +171,9 @@ const MainTable = () => {
     return new Date(date).toLocaleDateString('en-GB', options);
   };
 
-  const finyear = ['2020-21','2021-22',"2022-23","2023-24","2024-25","2025-26","2026-27","2027-28","2028-29","2029-30"];
+  const finyear = ["NA",'2020-21','2021-22',"2022-23","2023-24","2024-25","2025-26","2026-27","2027-28","2028-29","2029-30"];
   // const location = ['NA','Pune-DC',"BLR-DC","NDR-DC","Mumbai"];
-  const ascrenew = ["ASC-Renewal","Purchase"];
+  const ascrenew = ["NA","ASC-Renewal","Purchase"];
   // const laoc = loc;
   // const modelno = ['Dell Power Edge R730','Dell PowerEdge R7515',
   // 'Dell PowerEdge R730xd',
