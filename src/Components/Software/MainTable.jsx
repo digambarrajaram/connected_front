@@ -147,6 +147,43 @@ const MainTable = () => {
     }
 
     
+    const handelfileupload = async (event,rowdata) => {
+      const file = event.target.files[0];
+      const us = localStorage.getItem("username");
+      const formdata = new FormData();
+      formdata.append("file",file)
+      formdata.append("sofid",rowdata.sofid);
+      formdata.append("user",us )
+      // const fileupload = await axios.post("/inventory/uploadfile",file);
+      const options = {
+        method: "POST",
+        body: formdata
+      };
+
+      console.log(rowdata);
+
+      try {
+        
+        fetch("/inventory/uploadfile",options);
+        alert("FIled Uploaded Successfully");
+      } catch (error) {
+        
+        alert(`File upload failed ${error}`);
+      }
+
+    }
+
+    const downloadfile = async (event,rowdata) => {
+
+      try {
+        const response = await axios.get(`/inventory/download/${rowdata.sofid}`);
+      console.log(response.data);
+      window.open(`http://localhost:8080/inventory${response.data}`,'_blank');
+      } catch (error) {
+        console.log("Got Some error");
+      }
+      
+    }
 
     // console.log(loc);
     
@@ -297,6 +334,8 @@ const columnStyles = {
         { title: 'Approval WFMS No.', field: 'app_wfms_no', emptyValue:() => <em>NA</em>},
         { title: 'PO WFMS', field: 'po_wfms_no', emptyValue:() => <em>NA</em>},
         { title: 'Remark', field: 'remark', emptyValue:() => <em>NA</em>},
+        { title: 'Upload File', render: rowdata => (<input type="file" onChange={(e)=> handelfileupload(e, rowdata)}/>)},
+        { title: 'Download', render: rowdata => (<button onClick={(e)=> downloadfile(e,rowdata)}>Download</button>)}
       ]);
     
         const bannername = `Software Inventory`
