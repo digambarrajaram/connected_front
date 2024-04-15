@@ -28,6 +28,10 @@ const MainTable = () => {
     const [data,setData] = useState([]);
     const [loc,setLoc] = useState([]);
 
+    // const [userfile,setuserfile] = useState();
+    // const [clickstate,setclickstate] = useState(false);
+
+
     const findDifferences = (obj1, obj2) => {
       let news = [];
       return Object.keys(obj1).reduce((differences, key) => {
@@ -146,6 +150,7 @@ const MainTable = () => {
       // testing = [...new Set(response.data.map(item => item.location))];
     }
 
+
     
     const handelfileupload = async (event,rowdata) => {
       const file = event.target.files[0];
@@ -154,24 +159,56 @@ const MainTable = () => {
       formdata.append("file",file)
       formdata.append("sofid",rowdata.sofid);
       formdata.append("user",us )
-      // const fileupload = await axios.post("/inventory/uploadfile",file);
       const options = {
         method: "POST",
         body: formdata
       };
 
-      console.log(rowdata);
+    try {
+        
+      fetch("/inventory/uploadfile",options);
+      alert("FIled Uploaded Successfully");
+      console.log("done")
+    } catch (error) {
+      
+      alert(`File upload failed ${error}`);
+    }
 
-      try {
         
-        fetch("/inventory/uploadfile",options);
-        alert("FIled Uploaded Successfully");
-      } catch (error) {
-        
-        alert(`File upload failed ${error}`);
-      }
+ 
+      
 
     }
+
+    // console.log(userfile);
+
+    // const uploadfileonclick = async() => {
+
+
+      // const us = localStorage.getItem("username");
+      // const formdata = new FormData();
+      // formdata.append("file", userfile)
+      // formdata.append("sofid",rowdata.sofid);
+      // formdata.append("user",us )
+      // const options = {
+      //   method: "POST",
+      //   body: formdata
+      // };
+
+
+
+      //   try {
+        
+      //     fetch("/inventory/uploadfile",options);
+      //     alert("FIled Uploaded Successfully");
+      //   } catch (error) {
+          
+      //     alert(`File upload failed ${error}`);
+      //   }
+    // }
+
+// uploadfileonclick()
+
 
     const downloadfile = async (event,rowdata) => {
 
@@ -334,15 +371,16 @@ const columnStyles = {
         { title: 'Approval WFMS No.', field: 'app_wfms_no', emptyValue:() => <em>NA</em>},
         { title: 'PO WFMS', field: 'po_wfms_no', emptyValue:() => <em>NA</em>},
         { title: 'Remark', field: 'remark', emptyValue:() => <em>NA</em>},
-        { title: 'Upload File', render: rowdata => (<input type="file" onChange={(e)=> handelfileupload(e, rowdata)}/>)},
-        { title: 'Download', render: rowdata => (<button onClick={(e)=> downloadfile(e,rowdata)}>Download</button>)}
+        { title: 'Upload File', render: rowdata => (<input type="file" onChange={(e)=> handelfileupload(e, rowdata)}/> )},
+        // { title: 'Download', render: rowdata => (<button onClick={(e)=> downloadfile(e,rowdata)}>Download</button>)}
+        
       ]);
     
         const bannername = `Software Inventory`
 
       return (
         <div className='container-fluid d-flex justify-content-center align-items-center' style={{paddingRight:"0"}}>
-
+          
             <div className='mt-1' style={{width:"100%"}}>
         <MaterialTable
           title={bannername}
@@ -353,6 +391,11 @@ const columnStyles = {
           }))}
           icons={tableIcons}
           data={data}
+          actions={[{
+            icon:'⇓',
+            tooltip:'Download File',
+            onClick: (e,rowdata) => {downloadfile(e,rowdata)}
+          }]}
           editable={{
             onRowAdd: newData =>
             new Promise((resolve, reject) => {
