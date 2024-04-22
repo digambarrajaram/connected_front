@@ -18,6 +18,7 @@ import HardwarePowerOff from './Components/HardwarePowerOff/HardwarePowerOff';
 import Software from './Components/Software/Software';
 import SoftwareChangeLog from './Components/SoftwareChangeLog/SoftwareChangeLog';
 import SoftwarePowerOff from './Components/SoftwarePowerOff/SoftwarePowerOff';
+import DownloadFile from './Components/DownloadFile/DownloadFile';
 
 
 function App() {
@@ -56,6 +57,7 @@ function App() {
      <Route path="powerof/linuxpoweroff" element={<LinuxPowerOff setLogin={setLogin}/>}/>
      <Route path="powerof/hardwarepoweroff" element={<HardwarePowerOff setLogin={setLogin}/>}/>
      <Route path="powerof/softwarepoweroff" element={<SoftwarePowerOff setLogin={setLogin}/>}/>
+     <Route path="downloadfile/:id" element={<DownloadFile setLogin={setLogin}/>}/>
 
 
 

@@ -8,6 +8,7 @@ import FilterAltIcon from '@material-ui/icons/FilterList';
 import GetApp from '@material-ui/icons/GetApp';
 import NavigateNextIcon from '@material-ui/icons/NavigateNext';
 import ChevronLeftIcon from '@material-ui/icons/ChevronLeft';
+import { useNavigate } from 'react-router-dom';
 
 const MainTable = () => {
   const iconsMapping = Object.entries(Icons).reduce((acc, [name, icon]) => {
@@ -27,6 +28,8 @@ const MainTable = () => {
 
     const [data,setData] = useState([]);
     const [loc,setLoc] = useState([]);
+
+    const navigate = useNavigate();
 
     // const [userfile,setuserfile] = useState();
     // const [clickstate,setclickstate] = useState(false);
@@ -391,10 +394,16 @@ const columnStyles = {
           }))}
           icons={tableIcons}
           data={data}
-          actions={[{
+          actions={[
+          //   {
+          //   icon:'⇓',
+          //   tooltip:'Download File',
+          //   onClick: (e,rowdata) => {downloadfile(e,rowdata)}
+          // },
+          {
             icon:'⇓',
             tooltip:'Download File',
-            onClick: (e,rowdata) => {downloadfile(e,rowdata)}
+            onClick: (e,rowdata) => {navigate(`/downloadfile/${rowdata.sofid}`)}
           }]}
           editable={{
             onRowAdd: newData =>
