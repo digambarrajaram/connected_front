@@ -2,13 +2,13 @@ import React from 'react'
 import Header from '../Header/Header'
 import MainTable from './MainTable'
 
-const SoftwareChangeLog = ({setLogin}) => {
+const DownloadFile = ({setLogin}) => {
   return (
     <div className="App" style={{height:'100vh'}}>
 
     <div className='row' style={{height:'100vh',width:'100%'}}>
       <div className='col'>
-      <Header setLogin={setLogin} path="softwarechangelog" path2="softwarepoweroff" path3="software"/>
+      <Header setLogin={setLogin} path="downloadfile" path2="" path3=""/>
       </div>
       <div className='col-12 d-flex justify-content-between align-items-center flex-column' style={{width:"98vw"}}>
         <div className='container-fluid' style={{paddingRight:"0"}}>
@@ -22,4 +22,4 @@ const SoftwareChangeLog = ({setLogin}) => {
   )
 }
 
-export default SoftwareChangeLog;
+export default DownloadFile;
