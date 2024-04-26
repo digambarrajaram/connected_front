@@ -172,17 +172,15 @@ const MainTable = () => {
   }, [])
   
   // console.log(loc);
-
-  
-
-
   const formatDate = (date) => {
     const options = { day: 'numeric', month: 'short', year: 'numeric' };
     return new Date(date).toLocaleDateString('en-GB', options);
   };
 
-  const categories = ['NA','Intel',"AMD","SAN Switch","Storage","P-Series","HMC","ESX","Windows","SUSE 12SP2 - Central Log Server","RHEL 7.2 - Commvault Media Agenat","Open-SUSE 42 sp3 - IVR","TL - Esign","HSM","KVM"];
-  const location = ['NA','Pune-DC',"BLR-DC","NDR-DC","Mumbai"];
+  const os = ['NA',"HSM","ESX","KVM","Open-SUSE 42 sp3","RHEL 7.2","SUSE 12SP2","TL","Windows"];
+  const categories1 = ["NA","Intel Server ","San Switch","Storage","P-series Server","HSM"];
+  const oem = ["NA","DellEMC ","IBM"];
+  const location = ['NA','PUNE',"BLR","PUNE NDC","Pune-NDR","Mumbai"];
   // const laoc = ["Pune-DC","BLR-DC","Mumbai"];
   // const laoc = loc;
   const modelno = ['Dell Power Edge R730','Dell PowerEdge R7515',
@@ -192,7 +190,8 @@ const MainTable = () => {
   'Dell PowerEdge R7515'
   ]
 
-  const projectl = ['CRA',
+  const projectl = [
+  'CRA',
   'TIN',
   'Common\n(VKP,e-Sign,DOT,Hosting)',
   'Hosting',
@@ -201,8 +200,15 @@ const MainTable = () => {
   'Common',
   'Admin',
   'CRA UAT/Dev',
+  "CBFC",
+  "Common (FS9150-SAN-SW)",
+  "Common (Hosting)",
+  "Common (NDR)",
+  "CRA, GST",
+  "eSign",
+  "VS"
   ]
-  const amcwar = ['NA','AMC',"Warranty"];
+  const amcwar = ['NA','AMC',"Warranty","e-waste ","Warranty + AMC"];
   const insurance = ['NA','YES',"NO"];
   const socketno = [1,2,3,4,5,6,7,8,9,10,11,12,13,14,15,16,17,18,19,20]
 
@@ -219,11 +225,8 @@ const columnStyles = {
             // editable: 'never',
           },
           { title: 'UniqueId', field: 'hid', emptyValue:() => <em>NA</em>,editable:'never' },
-        { title: 'Asset No.', field: 'assetno', emptyValue:() => <em>NA</em> },
-        { title: 'Device Serial No.', field: 'deviceserialno', emptyValue:() => <em>NA</em>},
-        { title: 'ILO/Physical Ip', field: 'ilophysicalip', emptyValue:() => <em>NA</em>},
-        { title: 'Device Type', field: 'devicetype', emptyValue:() => <em>NA</em>,
-          lookup: categories.reduce((acc,lo)=>{
+          { title: 'Hardware Category', field: 'hardwarecategory', emptyValue:() => <em>NA</em>,
+          lookup: categories1.reduce((acc,lo)=>{
             // console.log(lo);
             acc[lo] = lo;
             // console.log(acc);
@@ -235,33 +238,99 @@ const columnStyles = {
               onChange={(e) => props.onChange(e.target.value)}
               style={{padding:'3px',background:'white', outline:'none',border:'none',borderBottom:'1px solid'}}
             >
-              {categories.map((category) => (
+              {categories1.map((category) => (
                 <option key={category} value={category}>
                   {category}
                 </option>
               ))}
             </select>
           ),},
-        { title: 'Model No.', field: 'modelno', emptyValue:() => <em>NA</em>,
-        lookup: modelno.reduce((acc,lo)=>{
-          // console.log(lo);
-          acc[lo] = lo;
-          // console.log(acc);
-          return acc;
-        },{}),
-        editComponent: (props) => (
-          <select
-            value={props.value}
-            onChange={(e) => props.onChange(e.target.value)}
-            style={{padding:'3px',background:'white', outline:'none',border:'none',borderBottom:'1px solid'}}
-          >
-            {modelno.map((category) => (
-              <option key={category} value={category}>
-                {category}
-              </option>
-            ))}
-          </select>
-        ),},
+
+          { title:'OEM', field: 'oem', emptyValue:() => <em>NA</em>,
+          lookup: oem.reduce((acc,lo)=>{
+            // console.log(lo);
+            acc[lo] = lo;
+            // console.log(acc);
+            return acc;
+          },{}),
+          editComponent: (props) => (
+            <select
+              value={props.value}
+              onChange={(e) => props.onChange(e.target.value)}
+              style={{padding:'3px',background:'white', outline:'none',border:'none',borderBottom:'1px solid'}}
+            >
+              {oem.map((category) => (
+                <option key={category} value={category}>
+                  {category}
+                </option>
+              ))}
+            </select>
+          ),},
+          { title: 'Vendor Name', field: 'vdamcname', emptyValue:() => <em>NA</em>},
+          { title: 'AMC/Warranty', field: 'awe', emptyValue:() => <em>NA</em>,
+          lookup: amcwar.reduce((acc,lo)=>{
+            // console.log(lo);
+            acc[lo] = lo;
+            // console.log(acc);
+            return acc;
+          },{}),
+          editComponent: (props) => (
+            <select
+              value={props.value}
+              onChange={(e) => props.onChange(e.target.value)}
+              style={{padding:'3px',background:'white', outline:'none',border:'none',borderBottom:'1px solid'}}
+            >
+              {amcwar.map((category) => (
+                <option key={category} value={category}>
+                  {category}
+                </option>
+              ))}
+            </select>
+          ),},
+        { title: 'Asset No.', field: 'assetno', emptyValue:() => <em>NA</em> },
+        { title: 'Device Serial No.', field: 'serialno', emptyValue:() => <em>NA</em>},
+        { title: 'Physical Ip', field: 'ilophysicalip', emptyValue:() => <em>NA</em>},
+        { title: 'Type/OS', field: 'typeoros', emptyValue:() => <em>NA</em>,
+          lookup: os.reduce((acc,lo)=>{
+            // console.log(lo);
+            acc[lo] = lo;
+            // console.log(acc);
+            return acc;
+          },{}),
+          editComponent: (props) => (
+            <select
+              value={props.value}
+              onChange={(e) => props.onChange(e.target.value)}
+              style={{padding:'3px',background:'white', outline:'none',border:'none',borderBottom:'1px solid'}}
+            >
+              {os.map((category) => (
+                <option key={category} value={category}>
+                  {category}
+                </option>
+              ))}
+            </select>
+          ),},
+        { title: 'Model A.', field: 'modela', emptyValue:() => <em>NA</em>,
+        // lookup: modelno.reduce((acc,lo)=>{
+        //   // console.log(lo);
+        //   acc[lo] = lo;
+        //   // console.log(acc);
+        //   return acc;
+        // },{}),
+        // editComponent: (props) => (
+        //   <select
+        //     value={props.value}
+        //     onChange={(e) => props.onChange(e.target.value)}
+        //     style={{padding:'3px',background:'white', outline:'none',border:'none',borderBottom:'1px solid'}}
+        //   >
+        //     {modelno.map((category) => (
+        //       <option key={category} value={category}>
+        //         {category}
+        //       </option>
+        //     ))}
+        //   </select>
+        // ),
+      },
         { title: 'CPU Series', field: 'cpuseries', emptyValue:() => <em>NA</em>},
 
         { title: 'Project Name', field: 'project', emptyValue:() => <em>NA</em>,
@@ -356,37 +425,19 @@ const columnStyles = {
             className='datecs'
           />
         ),},
+        { title: 'Approval WFMS No.', field: 'approvalwfmsno', emptyValue:() => <em>NA</em>},
         { title: 'PO No', field: 'pono', emptyValue:() => <em>NA</em>},
         { title: 'PO Date   ', field: 'podate', emptyValue:() => <em>NA</em>,
         editComponent: (props) => (
           <input
             type="date"
             value={props.value}
-            onChange={(e) => props.onChange(e.target.value)}
+            onChange={(e) => props.onChange(e.target.value)}g
             className='datecs'
           />
         ),
         },
-        { title: 'AMC/Warranty', field: 'devamcwar', emptyValue:() => <em>NA</em>,
-        lookup: amcwar.reduce((acc,lo)=>{
-          // console.log(lo);
-          acc[lo] = lo;
-          // console.log(acc);
-          return acc;
-        },{}),
-        editComponent: (props) => (
-          <select
-            value={props.value}
-            onChange={(e) => props.onChange(e.target.value)}
-            style={{padding:'3px',background:'white', outline:'none',border:'none',borderBottom:'1px solid'}}
-          >
-            {amcwar.map((category) => (
-              <option key={category} value={category}>
-                {category}
-              </option>
-            ))}
-          </select>
-        ),},
+        { title: 'PO WFMS No.', field: 'powfmsno', emptyValue:() => <em>NA</em>},
         { title: 'Warranty Start', field: 'warstdate', emptyValue:() => <em>NA</em>,
         editComponent: (props) => (
           <input
@@ -423,16 +474,16 @@ const columnStyles = {
             className='datecs'
           />
         ),},
-        { title: 'Expiry', field: 'expdate', emptyValue:() => <em>NA</em>,
-        editComponent: (props) => (
-          <input
-            type="date"
-            value={props.value}
-            onChange={(e) => props.onChange(e.target.value)}
-            className='datecs'
-          />
-        ),},
-        { title: 'Vendor AMC Name', field: 'vdamcname', emptyValue:() => <em>NA</em>},
+        // { title: 'Expiry', field: 'expdate', emptyValue:() => <em>NA</em>,
+        // editComponent: (props) => (
+        //   <input
+        //     type="date"
+        //     value={props.value}
+        //     onChange={(e) => props.onChange(e.target.value)}
+        //     className='datecs'
+        //   />
+        // ),},
+       
         { title: 'Device Insurance', field: 'deviceinsurance', emptyValue:() => <em>NA</em>,
         lookup: insurance.reduce((acc,lo)=>{
           // console.log(lo);
@@ -462,15 +513,20 @@ const columnStyles = {
             className='datecs'
           />
         ),},
-        { title: 'Principal End of Service', field: 'principaleoservice', emptyValue:() => <em>NA</em>,
-        editComponent: (props) => (
-          <input
-            type="date"
-            value={props.value}
-            onChange={(e) => props.onChange(e.target.value)}
-            className='datecs'
-          />
-        ),},
+        // { title: 'Principal End of Service', field: 'principaleoservice', emptyValue:() => <em>NA</em>,
+        // editComponent: (props) => (
+        //   <input
+        //     type="date"
+        //     value={props.value}
+        //     onChange={(e) => props.onChange(e.target.value)}
+        //     className='datecs'
+        //   />
+        // ),},
+        { title: 'Machine Type', field: 'machinetype', emptyValue:() => <em>NA</em>},
+        { title: 'ModelB', field: 'modelb', emptyValue:() => <em>NA</em>},
+        { title: 'Remark', field: 'remark', emptyValue:() => <em>NA</em>},
+
+        
       ]);
     
 
