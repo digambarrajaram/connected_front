@@ -54,6 +54,15 @@ const MainTable = () => {
     
     // const [groupedData,setGroupData] = useState([]);
 
+      const getdiffdate = (rowdata) => {
+
+        var datediff = new Date(rowdata.asc_enddate).getTime() - new Date().getTime();
+        var pendingdays = Math.floor(datediff/(1000*60*60*24));
+
+        return pendingdays;
+      }
+
+      // getdiffdate();
 
     // const [filter,setFilter] = useState(false);
     const addUpdateData = async (newData) =>{
@@ -487,7 +496,7 @@ const columnStyles = {
           }}
           style={{ maxHeight: '90vh', overflow: 'auto' }}
         //   actions={[{icon:()=><MdOutlineHideSource/>, onClick:()=> {setFilter(!filter); console.log(filter);}, isFreeAction:true}]}
-        options={{pagination:false,filtering:true,exportButton:true,grouping:true,columnsButton:true,exportAllData:true,maxBodyHeight: '70vh',addRowPosition:"first",headerStyle:{fontSize:'13px'},cellStyle:{fontSize:'13px'}}}
+        options={{pagination:false,filtering:true,exportButton:true,grouping:true,columnsButton:true,exportAllData:true,maxBodyHeight: '70vh',addRowPosition:"first",headerStyle:{fontSize:'13px'},cellStyle:{fontSize:'13px'}, rowStyle: rowData => ({backgroundColor: (getdiffdate(rowData) < 60) ? 'red':''})}}
         />
         </div>
         </div>
