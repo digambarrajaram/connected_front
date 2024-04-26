@@ -625,7 +625,7 @@ const columnStyles = {
           }}
           style={{ maxHeight: '90vh', overflow: 'auto' }}
         //   actions={[{icon:()=><MdOutlineHideSource/>, onClick:()=> {setFilter(!filter); console.log(filter);}, isFreeAction:true}]}
-        options={{pagination:false,filtering:true,exportButton:true,grouping:true,columnsButton:true,exportAllData:true,maxBodyHeight: '70vh',addRowPosition:"first",headerStyle:{fontSize:'13px'},cellStyle:{fontSize:'13px'}}}
+        options={{pagination:false,filtering:true,exportButton:true,grouping:true,columnsButton:true,exportAllData:true,maxBodyHeight: '70vh',addRowPosition:"first",pageSize:20, pageSizeOptions:[10,50,100,1000], headerStyle:{fontSize:'13px'},cellStyle:{fontSize:'13px'}}}
         />
         </div>
         </div>

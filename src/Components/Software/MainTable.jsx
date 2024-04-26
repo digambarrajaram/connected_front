@@ -496,7 +496,7 @@ const columnStyles = {
           }}
           style={{ maxHeight: '90vh', overflow: 'auto' }}
         //   actions={[{icon:()=><MdOutlineHideSource/>, onClick:()=> {setFilter(!filter); console.log(filter);}, isFreeAction:true}]}
-        options={{pagination:false,filtering:true,exportButton:true,grouping:true,columnsButton:true,exportAllData:true,maxBodyHeight: '70vh',addRowPosition:"first",headerStyle:{fontSize:'13px'},cellStyle:{fontSize:'13px'}, rowStyle: rowData => ({backgroundColor: (getdiffdate(rowData) < 60) ? 'red':''})}}
+        options={{pagination:false,filtering:true,exportButton:true,grouping:true,columnsButton:true,exportAllData:true,maxBodyHeight: '70vh',addRowPosition:"first",headerStyle:{fontSize:'13px'},pageSize:20, pageSizeOptions:[10,50,100,1000],cellStyle:{fontSize:'13px'}, rowStyle: rowData => ({backgroundColor: (getdiffdate(rowData) < 60) ? 'red':''})}}
         />
         </div>
         </div>
